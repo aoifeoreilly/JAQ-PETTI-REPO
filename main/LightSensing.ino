@@ -16,33 +16,32 @@ void LightSensing::begin(){
 }
 
 void LightSensing::initPins(){
-  
+  digitalWrite(lightSensingLEDS, HIGH);
 }
-// const int wallVoltageInt = 0;
-// const int voltageInt = 0;
-// const int redLed = 12;
-// const int blueLed = 11;
-// const int photoTransistor = A2;
 
-// void setup() {
-//   pinMode(redLed, OUTPUT);
-//   pinMode(blueLed, OUTPUT);
-//   pinMode(photoTransistor, INPUT);
-//   Serial.begin(9600);
-//   initPins();
-// }
+void LightSensing::readPhotoTransistorValue(){
+  photoTransistorValue = analogRead(photoTransistor_LS);
+  int tempValue = circularBuffer[bufferIndex];
+  circularBuffer[bufferIndex++] = photoTransistorValue;
+  runningSum = runningSum - tempValue + photoTransistorValue;
+  average = runningSum/cBuff;
+  if (bufferIndex == cBuff){
+    bufferIndex = 0;
+  }
+  // Serial.print("Value: ");
+  // Serial.println(photoTransistorValue);
+  // Serial.print("Average: ");
+  Serial.println(average);
+}
 
-// void loop() {
-//   digitalWrite(blueLed, LOW);  
-//   digitalWrite(redLed, HIGH);
-//   delay(1000);
-
-//   digitalWrite(redLed, LOW);
-//   digitalWrite(blueLed, HIGH);
-//   delay(1000);
-// }
-
-// void initPins(){
-//   digitalWrite(redLed, LOW);
-//   digitalWrite(blueLed, LOW);
-// }
+void LightSensing::checkColor(){
+  if (average > 0 && average < 200) {
+    Serial.println("On Yellow Surface");
+  } else if (average > 200 && average < 360){
+    Serial.println("On Blue Surface");
+  } else if (average > 360 && average < 480) {
+    Serial.println("On Red Surface");
+  } else {
+    Serial.println("On Black Surface");
+  }
+}

@@ -10,6 +10,7 @@
 
 const int lightSensingLEDS = 10; // ALL LIGHTS CAN BE POWERED USING ONE PIN
 const int photoTransistor_LS = A2;
+const int cBuff_LS = 5;
 
 class LightSensing
 {
@@ -17,11 +18,18 @@ class LightSensing
     LightSensing();
     void begin();
     void initPins();
+    void readPhotoTransistorValue();
+    void checkColor();
 
 
 
   private:
     int photoTransistorValue = 0;
+    int runningSum = 0;
+    int circularBufferResult;
+    int circularBuffer[cBuff_LS];
+    int bufferIndex = 0;
+    int average = 500;
 
 };
 

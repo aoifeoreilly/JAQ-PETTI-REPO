@@ -20,7 +20,7 @@ void WallDetection::initPins() {
   digitalWrite(wallLED, HIGH);
 }
 
-void WallDetection::checkWall() {
+void WallDetection::readPhotoTransistorValue() {
   photoTransistorValue = analogRead(photoTransistor);
   int tempValue = circularBuffer[bufferIndex];
   circularBuffer[bufferIndex++] = photoTransistorValue;
@@ -29,17 +29,15 @@ void WallDetection::checkWall() {
   if (bufferIndex == cBuff){
     bufferIndex = 0;
   }
-  Serial.print("Value: ");
-  Serial.println(photoTransistorValue);
-  Serial.print("Average: ");
-  Serial.println(average);
-
-  if (average > wallVoltageInt){
-      // Write Code to Reverse
-  }
-
-  delay(200);
+  //Serial.println(average);
 }
+
+void WallDetection::checkWall() {
+  if (average < wallVoltageInt){
+      //Serial.println("STOP: WALL DETECTED");
+  }
+}
+
 
 
 

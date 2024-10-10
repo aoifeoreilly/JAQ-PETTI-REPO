@@ -11,14 +11,20 @@
 
 WallDetection wall;
 StateMachine state;
+LightSensing ls;
 
 void setup() {
   Serial.begin(9600);
   wall.begin();
   state.begin();
+  ls.begin();
 }
 
 void loop() {
+  wall.readPhotoTransistorValue();
   wall.checkWall();
+  ls.readPhotoTransistorValue();
+  ls.checkColor();
   state.loop();
+  delay(100);
 }

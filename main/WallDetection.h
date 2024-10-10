@@ -9,7 +9,7 @@
 #include "Arduino.h"
 
 const int cBuff = 5;
-const int wallVoltageInt = 0;
+const int wallVoltageInt = 120;
 const int voltageInt = 0;
 const int wallLED = 0;
 const int photoTransistor = A1;
@@ -20,7 +20,7 @@ class WallDetection
     WallDetection();
     void begin();
     void initPins();
-    void readTransistorVal();
+    void readPhotoTransistorValue();
     void checkWall();
     
   private:
