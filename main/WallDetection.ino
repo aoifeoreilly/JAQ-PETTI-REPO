@@ -34,7 +34,7 @@ void WallDetection::readPhotoTransistorValue() {
 
 void WallDetection::checkWall() {
   if (average < wallVoltageInt){
-      //Serial.println("STOP: WALL DETECTED");
+      Serial.println("STOP: WALL DETECTED");
   }
 }
 
