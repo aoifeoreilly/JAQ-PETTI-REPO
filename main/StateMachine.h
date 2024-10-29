@@ -28,6 +28,7 @@ class StateMachine
     void initPins();
     void buttonStateFunctions(int buttonState);
     void loop();
+    void test();
     //static void pin_ISR();
   private:
     volatile int buttonState = 0;         // variable for reading the pushbutton status

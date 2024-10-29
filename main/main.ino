@@ -7,17 +7,19 @@
 #include "WallDetection.h"
 #include "StateMachine.h"
 #include "LightSensing.h"
-#include "ServerCommunication.h"
+#include "WebSocket.h"
 
 WallDetection wall;
 StateMachine state;
 LightSensing ls;
+WebSocket ws;
 
 void setup() {
   Serial.begin(9600);
   wall.begin();
   state.begin();
   ls.begin();
+  ws.begin();
 }
 
 void loop() {
@@ -25,6 +27,7 @@ void loop() {
   wall.checkWall();
   ls.readPhotoTransistorValue();
   ls.checkColor();
-  state.loop();
+  // state.test();
+  ws.run();
   delay(100);
 }

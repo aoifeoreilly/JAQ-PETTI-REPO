@@ -35,13 +35,5 @@ void LightSensing::readPhotoTransistorValue(){
 }
 
 void LightSensing::checkColor(){
-  if (average > 0 && average < 200) {
-    Serial.println("On Yellow Surface");
-  } else if (average > 200 && average < 360){
-    Serial.println("On Blue Surface");
-  } else if (average > 360 && average < 480) {
-    Serial.println("On Red Surface");
-  } else {
-    Serial.println("On Black Surface");
-  }
+
 }

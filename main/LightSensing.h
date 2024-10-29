@@ -9,7 +9,7 @@
 #include "Arduino.h"
 
 const int lightSensingLEDS = 10; // ALL LIGHTS CAN BE POWERED USING ONE PIN
-const int photoTransistor_LS = A2;
+const int photoTransistor_LS = A4;
 const int cBuff_LS = 5;
 
 class LightSensing

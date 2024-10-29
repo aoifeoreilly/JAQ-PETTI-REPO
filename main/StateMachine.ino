@@ -124,12 +124,20 @@ void StateMachine::initPins() {
 //   digitalWrite(rightWheelInputA, LOW);
 //   digitalWrite(rightWheelInputB, LOW);  
 // }
-
+// void StateMachine::test() {
+//     digitalWrite(enableRightWheel, HIGH);
+//     digitalWrite(enableLeftWheel, HIGH);
+//     digitalWrite(leftWheelInputB, LOW);
+//     digitalWrite(rightWheelInputB, LOW);
+//     analogWrite(leftWheelInputA, analogWriteSpeed);
+//     analogWrite(rightWheelInputA, analogWriteSpeed);
+//     // delay(1000); //wait for a second     
+// }
 // name: loop
 // function : the main function that runs for as long as the Arduino is on (loops forever)
 // arguments : none
 // returns : none
-void StateMachine::loop() {
+void StateMachine::loop(int) {
   if (buttonPressed) {
     if (!digitalRead(buttonPin)) {
       buttonState += 1;
@@ -139,8 +147,9 @@ void StateMachine::loop() {
     }
 
     Serial.println(buttonState);      //Printing for testing
-    buttonStateFunctions(buttonState);
+    //buttonStateFunctions(buttonState);
     // Reset the flag
+
     buttonPressed = false;
   }
   delay(1);
