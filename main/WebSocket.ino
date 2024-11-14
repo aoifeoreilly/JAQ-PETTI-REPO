@@ -42,16 +42,16 @@ void WebSocket::begin(){
   IPAddress ip = WiFi.localIP();
   Serial.print("IP Address: ");
   Serial.println(ip);
-}
 
-void WebSocket::run(){
   Serial.println("starting WebSocket client");
   client.begin();
   client.beginMessage(TYPE_TEXT);
   client.print(clientID);
   client.endMessage();
+}
 
-  while (client.connected()) {
+void WebSocket::run(){
+  if (client.connected()) {
     // check if a message is available to be received
     int messageSize = client.parseMessage();
     if (messageSize > 0) {
@@ -63,13 +63,12 @@ void WebSocket::run(){
 
     // wait 10ms
     delay(10);
+  } else {
+    Serial.println("disconnected");
   }
-
-  Serial.println("disconnected");
 }
 
 void WebSocket::checkStateNum(String message){
-  Serial.println(message);
   if(message.endsWith("State 1")){
     state = 1;
   } else if (message.endsWith("State 2")){
@@ -87,7 +86,7 @@ void WebSocket::checkStateNum(String message){
   }
 }
 
-void WebSocket::getStateNumber(){
+int WebSocket::getStateNumber(){
   return state;
 }
 

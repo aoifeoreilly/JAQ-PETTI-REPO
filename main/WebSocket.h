@@ -29,7 +29,7 @@ class WebSocket
     void begin();
     void run();
     void checkStateNum(String message);
-    void getStateNumber();
+    int getStateNumber();
   private:
     String readMessage;
     int state = 0;

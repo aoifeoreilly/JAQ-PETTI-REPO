@@ -18,7 +18,10 @@ const int rightWheelInputA = 6;
 const int rightWheelInputB = 3;
 const int buttonPin = 5;     // the number of the pushbutton pin
 const int analogWriteSpeed = 200;
+const int analogWriteSlow = 50;
 const int analogWriteSpeed2 = 40;
+const int analogWriteSpeedTest = 230;
+const int analogWriteSpeedTest2 = 40;
 
 class StateMachine
 {
@@ -27,7 +30,7 @@ class StateMachine
     void begin();
     void initPins();
     void buttonStateFunctions(int buttonState);
-    void loop();
+    void buttonStateResetPins();
     void test();
     //static void pin_ISR();
   private:

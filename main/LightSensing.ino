@@ -31,7 +31,7 @@ void LightSensing::readPhotoTransistorValue(){
   // Serial.print("Value: ");
   // Serial.println(photoTransistorValue);
   // Serial.print("Average: ");
-  Serial.println(average);
+  // Serial.println(average);
 }
 
 void LightSensing::checkColor(){

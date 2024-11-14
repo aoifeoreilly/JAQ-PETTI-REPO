@@ -8,6 +8,7 @@
 #include "StateMachine.h"
 #include "LightSensing.h"
 #include "WebSocket.h"
+#include "BatteryDetection.h"
 
 WallDetection wall;
 StateMachine state;
@@ -27,7 +28,11 @@ void loop() {
   wall.checkWall();
   ls.readPhotoTransistorValue();
   ls.checkColor();
-  // state.test();
   ws.run();
-  delay(100);
+  int stateNum = ws.getStateNumber();
+  Serial.print("Main Serial Num: ");
+  Serial.println(stateNum);
+  state.buttonStateFunctions(stateNum);
+  // state.test();
+  delay(1000);
 }

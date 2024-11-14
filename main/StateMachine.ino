@@ -124,35 +124,16 @@ void StateMachine::initPins() {
 //   digitalWrite(rightWheelInputA, LOW);
 //   digitalWrite(rightWheelInputB, LOW);  
 // }
-// void StateMachine::test() {
-//     digitalWrite(enableRightWheel, HIGH);
-//     digitalWrite(enableLeftWheel, HIGH);
-//     digitalWrite(leftWheelInputB, LOW);
-//     digitalWrite(rightWheelInputB, LOW);
-//     analogWrite(leftWheelInputA, analogWriteSpeed);
-//     analogWrite(rightWheelInputA, analogWriteSpeed);
-//     // delay(1000); //wait for a second     
-// }
-// name: loop
-// function : the main function that runs for as long as the Arduino is on (loops forever)
-// arguments : none
-// returns : none
-void StateMachine::loop(int) {
-  if (buttonPressed) {
-    if (!digitalRead(buttonPin)) {
-      buttonState += 1;
-    }
-    if (buttonState > 6) {
-      buttonState = 0;
-    }
-
-    Serial.println(buttonState);      //Printing for testing
-    //buttonStateFunctions(buttonState);
-    // Reset the flag
-
-    buttonPressed = false;
-  }
-  delay(1);
+void StateMachine::test() {
+    digitalWrite(enableRightWheel, HIGH);
+    digitalWrite(enableLeftWheel, HIGH);
+    digitalWrite(leftWheelInputB, LOW);
+    digitalWrite(rightWheelInputB, LOW);
+    digitalWrite(leftWheelInputA, HIGH);
+    digitalWrite(rightWheelInputA, HIGH);
+    // analogWrite(leftWheelInputA, analogWriteSpeed);
+    // analogWrite(rightWheelInputA, analogWriteSpeed);
+    // delay(1000); //wait for a second     
 }
 
 // name: buttonStateFunctions
@@ -160,55 +141,32 @@ void StateMachine::loop(int) {
 // arguments : buttonState (the current button state from 0 to 6)
 // returns : none
 void StateMachine::buttonStateFunctions(int buttonState) {
+  Serial.println(buttonState);
   if(buttonState == 0){
     initPins();
   }
   if(buttonState == 1){ //GO FORWARD
-    digitalWrite(enableRightWheel, HIGH);
-    digitalWrite(enableLeftWheel, HIGH);
-    digitalWrite(leftWheelInputB, LOW);
-    digitalWrite(rightWheelInputB, LOW);
+    buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeed);
-    analogWrite(rightWheelInputA, analogWriteSpeed);
-    delay(1000); //wait for a second      
+    analogWrite(rightWheelInputA, analogWriteSlow);
   }
   if(buttonState == 2){ //GO BACKWARDS
-    digitalWrite(enableRightWheel, HIGH);
-    digitalWrite(enableLeftWheel, HIGH);
-    digitalWrite(leftWheelInputA, LOW);
-    digitalWrite(rightWheelInputA, LOW);
+    buttonStateResetPins();
     analogWrite(leftWheelInputB, analogWriteSpeed);
     analogWrite(rightWheelInputB, analogWriteSpeed);
-    delay(1000); //wait for a second
   }
   if(buttonState == 3){ // PIVOT CLOCKWISE
-    digitalWrite(enableRightWheel, HIGH);
-    digitalWrite(enableLeftWheel, HIGH);
-    digitalWrite(leftWheelInputB, LOW);
-    digitalWrite(rightWheelInputB, LOW);
+    buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeed);
     analogWrite(rightWheelInputA, analogWriteSpeed2);
-    digitalWrite(enableRightWheel, HIGH);
-    // digitalWrite(enableLeftWheel, HIGH);
-    // digitalWrite(leftWheelInputB, LOW);
-    // digitalWrite(rightWheelInputA, LOW);
-    // analogWrite(leftWheelInputA, analogWriteSpeed);
-    // analogWrite(rightWheelInputB, analogWriteSpeed2);
-
   }
   if(buttonState == 4){ //PIVOT COUNTERCLOCKWISE
-    digitalWrite(enableRightWheel, HIGH);
-    digitalWrite(enableLeftWheel, HIGH);
-    digitalWrite(leftWheelInputB, LOW);
-    digitalWrite(rightWheelInputB, LOW);
+    buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeed2);
     analogWrite(rightWheelInputA, analogWriteSpeed);
   }
   if(buttonState == 5){
-    digitalWrite(enableRightWheel, HIGH);
-    digitalWrite(enableLeftWheel, HIGH);
-    digitalWrite(leftWheelInputB, LOW);
-    digitalWrite(rightWheelInputB, LOW);
+    buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeed);
     analogWrite(rightWheelInputA, analogWriteSpeed2);
     delay(2000);
@@ -216,16 +174,22 @@ void StateMachine::buttonStateFunctions(int buttonState) {
     digitalWrite(rightWheelInputA, LOW);
   }
   if(buttonState == 6){
-    digitalWrite(enableRightWheel, HIGH);
-    digitalWrite(enableLeftWheel, HIGH);
-    digitalWrite(leftWheelInputB, LOW);
-    digitalWrite(rightWheelInputB, LOW);
+    buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeed2);
     analogWrite(rightWheelInputA, analogWriteSpeed);
     delay(2000);
     digitalWrite(leftWheelInputA, LOW);
     digitalWrite(rightWheelInputA, LOW);
   }
+}
+
+void StateMachine::buttonStateResetPins() {
+    digitalWrite(enableRightWheel, HIGH);
+    digitalWrite(enableLeftWheel, HIGH);
+    digitalWrite(leftWheelInputA, LOW);
+    digitalWrite(rightWheelInputA, LOW);
+    digitalWrite(leftWheelInputB, LOW);
+    digitalWrite(rightWheelInputB, LOW);
 }
 
 // name: pin_ISR
