@@ -41,10 +41,10 @@ void WebSocket::begin(){
   Serial.println(ip);
 
   Serial.println("starting WebSocket client");
-  client.begin();
-  client.beginMessage(TYPE_TEXT);
-  client.print(clientID);
-  client.endMessage();
+  client.begin(); //begins websocket connection
+  client.beginMessage(TYPE_TEXT); //begins message of type text
+  client.print(clientID); //prininting message to server
+  client.endMessage(); //ends message -> sends everything to server
 }
 
 void WebSocket::run(){
