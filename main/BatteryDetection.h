@@ -7,6 +7,9 @@
 #define BatteryDetection_h
 
 #include "Arduino.h"
+#include "WebSocket_h"
+
+const int v_divider_pin = A2; //could change
 
 
 class BatteryDetection
@@ -14,9 +17,10 @@ class BatteryDetection
   public:
     BatteryDetection();
     void begin();
-    void initPins();
+    void ReadVoltage();
     
   private:
+    int BatteryVoltage = 0;
 };
 
 #endif
