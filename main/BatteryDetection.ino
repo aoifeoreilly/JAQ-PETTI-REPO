@@ -4,7 +4,7 @@
 */
 
 #include "Arduino.h"
-#include "WallDetection.h"
+#include "BatteryDetection.h"
 
 // name: BatteryDetection (constructor)
 // function : creates an instance of BatteryDetection and calls begin() function.
@@ -19,12 +19,20 @@ BatteryDetection::BatteryDetection() {
 // arguments : none
 // returns : none
 void BatteryDetection::begin() {
+  pinMode(A2, INPUT) //A2 is just a sample pin, not sure which pins are taken
+  ReadVoltage();
 }
 
-// name: initPins
-// function : initializes the pins to aid in the BatteryDetection functionality
+// name: ReadVoltage
+// function : Reads Voltage from voltage divider circuit
 // arguments : none
 // returns : none
-void BatteryDetection::initPins() {
-
+void BatteryDetection::ReadVoltage() {
+  string battery_message = "Battery is Low!";
+  BatteryVoltage = (analogRead(A2))*(5/1023);
+  if ((BatteryVoltage < 2.35) and client.connected) {
+    client.beginMessage(TYPE_TEXT);
+    client.print(battery_message);
+    client.endMessage();
+  }
 }
