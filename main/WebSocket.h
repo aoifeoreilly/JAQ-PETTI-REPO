@@ -1,6 +1,6 @@
 /*
-  WallDetection.h - Library for Wall Detection code
-  Created by Quan Vu, October 8, 2024.
+  WebSocket.h - Library for Wall Detection code
+  Created by Quan Vu, October 31, 2024.
 */
 
 #ifndef WebSocket_h

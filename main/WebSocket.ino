@@ -1,8 +1,3 @@
-/*
-  ServerCommunication.cpp - Library for Wall Detection code.
-  Created by Quan Vu, October 8, 2024.
-*/
-
 #include "Arduino.h"
 #include "WebSocket.h"
 
@@ -17,6 +12,8 @@
   by Tom Igoe
   Modified by Gabriel Sessions
   for EE 31
+  Modified by Quan Vu
+  for EE 31 Project October 31, 2024
 
   this example is in the public domain
 */
@@ -68,6 +65,10 @@ void WebSocket::run(){
   }
 }
 
+// name: checkStateNum
+// function : checks the message for WebSocket, parses it to only see the end, and changes states depending on message conditionals
+// arguments : a string with the message from WebSocket
+// returns : none
 void WebSocket::checkStateNum(String message){
   if(message.endsWith("State 1")){
     state = 1;
@@ -85,7 +86,10 @@ void WebSocket::checkStateNum(String message){
     state = 0;
   }
 }
-
+// name: getStateNumber
+// function : getter for StateNumber
+// arguments : none
+// returns : none
 int WebSocket::getStateNumber(){
   return state;
 }

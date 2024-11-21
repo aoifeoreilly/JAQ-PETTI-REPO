@@ -6,20 +6,36 @@
 #include "Arduino.h"
 #include "WallDetection.h"
 
+// name: WallDetection (constructor)
+// function : creates an instance of WallDetection and calls begin() function.
+// arguments : none
+// returns : none
 WallDetection::WallDetection() {
   begin();
 }
 
+// name: begin
+// function : sets the pinMode of each pin and initializes the pins accordingly
+// arguments : none
+// returns : none
 void WallDetection::begin() {
   pinMode(wallLED, OUTPUT);
   pinMode(photoTransistor, INPUT);
   initPins();
 }
 
+// name: initPins
+// function : initializes the pins to aid in the WallDetection functionality
+// arguments : none
+// returns : none
 void WallDetection::initPins() {
   digitalWrite(wallLED, HIGH);
 }
 
+// name: readPhotoTransistorValue
+// function : takes reading from phototransistor and inserts into a circular buffer
+// arguments : none
+// returns : none
 void WallDetection::readPhotoTransistorValue() {
   photoTransistorValue = analogRead(photoTransistor);
   int tempValue = circularBuffer[bufferIndex];
@@ -32,69 +48,13 @@ void WallDetection::readPhotoTransistorValue() {
   //Serial.println(average);
 }
 
+// name: checkWall
+// function : handles logic for when circularBuffer reading becomes lower than a constant wallVoltage (we choose)
+// arguments : none
+// returns : none
 void WallDetection::checkWall() {
   if (average < wallVoltageInt){
       //Serial.println("STOP: WALL DETECTED");
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const int wallVoltageInt = 0;
-// const int voltageInt = 0;
-// const int wallLed = 0;
-// const int redLed = 0;
-// const int blueLed = 0;
-// const int photoTransistor = A1;
-
-// const uint8_t cBuff = 5;
-// volatile int runningSum = 0;
-// volatile int circularBufferResult; // CIRCULAR BUFFER 
-// int circularBuffer[cBuff];
-// int buffer_index = 0;
-// int average = 250;
-
-// volatile int photoTransistorValue = 0;
-
-// void setup() {
-//   pinMode(wallLed, OUTPUT);
-//   pinMode(redLed, OUTPUT);
-//   pinMode(blueLed, OUTPUT);
-//   pinMode(photoTransistor, INPUT);
-//   Serial.begin(9600);
-//   initPins();
-// }
-
-// void loop() {
-  // photoTransistorValue = analogRead(photoTransistor);
-  // int tempValue = circularBuffer[buffer_index];
-  // circularBuffer[buffer_index++] = photoTransistorValue;
-  // runningSum = runningSum - tempValue + photoTransistorValue;
-  // average = runningSum/cBuff;
-  // if (buffer_index == cBuff){
-  //   buffer_index = 0;
-  // }
-  // Serial.print("Value: ");
-  // Serial.println(photoTransistorValue);
-  // Serial.print("Average: ");
-  // Serial.println(average);
-
-  // if (average > wallVoltageInt){
-  //     // Write Code to Reverse
-  // }
-
-  // delay(200);
-// }
 

@@ -10,19 +10,31 @@
 #include "WebSocket.h"
 #include "BatteryDetection.h"
 
+// Declaration of Each Component
 WallDetection wall;
 StateMachine state;
 LightSensing ls;
 WebSocket ws;
+BatteryDetection bd;
 
+// name: setup
+// function : serves as the setup of the arduino, enabling all pins 
+//            and initializing inputs and outputs of each component as needed
+// arguments : none
+// returns : none
 void setup() {
   Serial.begin(9600);
   wall.begin();
   state.begin();
   ls.begin();
   ws.begin();
+  // bd.begin();
 }
 
+// name: loop
+// function : main function that handles all loop logic (everything to make the bot run)
+// arguments : none
+// returns : none
 void loop() {
   wall.readPhotoTransistorValue();
   wall.checkWall();
@@ -33,6 +45,5 @@ void loop() {
   Serial.print("Main Serial Num: ");
   Serial.println(stateNum);
   state.buttonStateFunctions(stateNum);
-  // state.test();
   delay(1000);
 }
