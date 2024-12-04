@@ -18,9 +18,11 @@ LightSensing::LightSensing(){
 // arguments : none
 // returns : none
 void LightSensing::begin(){
-  pinMode(lightSensingLEDS, OUTPUT);
-  pinMode(photoTransistor, INPUT);
-  initPins();
+  // pinMode(lightSensingLED_Red, OUTPUT);
+  // pinMode(lightSensingLED_Blue, OUTPUT);
+  // pinMode(lightSensingLEDS, OUTPUT);
+  // pinMode(photoTransistor, INPUT);
+  // initPins();
 }
 
 // name: initPins
@@ -28,7 +30,7 @@ void LightSensing::begin(){
 // arguments : none
 // returns : none
 void LightSensing::initPins(){
-  digitalWrite(lightSensingLEDS, HIGH);
+  //digitalWrite(lightSensingLEDS, HIGH);
 }
 
 // name: readPhotoTransistorValue
@@ -36,14 +38,16 @@ void LightSensing::initPins(){
 // arguments : none
 // returns : none
 void LightSensing::readPhotoTransistorValue(){
-  photoTransistorValue = analogRead(photoTransistor_LS);
-  int tempValue = circularBuffer[bufferIndex];
-  circularBuffer[bufferIndex++] = photoTransistorValue;
-  runningSum = runningSum - tempValue + photoTransistorValue;
-  average = runningSum/cBuff;
-  if (bufferIndex == cBuff){
-    bufferIndex = 0;
-  }
+  // photoTransistorValue = analogRead(photoTransistor_LS);
+  // int tempValue = circularBuffer[bufferIndex];
+  // circularBuffer[bufferIndex++] = photoTransistorValue;
+  // runningSum = runningSum - tempValue + photoTransistorValue;
+  // average = runningSum/cBuff;
+  // if (bufferIndex == cBuff){
+  //   bufferIndex = 0;
+  // }
+
+  
   // Serial.print("Value: ");
   // Serial.println(photoTransistorValue);
   // Serial.print("Average: ");

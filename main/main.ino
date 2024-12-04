@@ -17,6 +17,17 @@ LightSensing ls;
 WebSocket ws;
 BatteryDetection bd;
 
+volatile int stateNum = 0;
+volatile int previousStateNum = 0;
+String state0 = "State 0";
+String state1 = "State 1";
+String state2 = "State 2";
+String state3 = "State 3";
+String state4 = "State 4";
+String state5 = "State 5";
+String state6 = "State 6";
+
+
 // name: setup
 // function : serves as the setup of the arduino, enabling all pins 
 //            and initializing inputs and outputs of each component as needed
@@ -28,7 +39,7 @@ void setup() {
   state.begin();
   ls.begin();
   ws.begin();
-  // bd.begin();
+  bd.begin();
 }
 
 // name: loop
@@ -41,9 +52,27 @@ void loop() {
   ls.readPhotoTransistorValue();
   ls.checkColor();
   ws.run();
-  int stateNum = ws.getStateNumber();
-  Serial.print("Main Serial Num: ");
-  Serial.println(stateNum);
-  state.buttonStateFunctions(stateNum);
-  delay(1000);
+  bool wallDetect = wall.getWallDetectedBool();
+  // Serial.println(wallDetect);
+  if (wallDetect) {
+    // client.beginMessage(TYPE_TEXT);
+    // client.print(state2);
+    // client.endMessage();  
+    // stateNum = 2;
+    // Serial.print("REVERSE: ");
+    // Serial.println(stateNum);
+    // state.buttonStateSetter(stateNum);
+    stateNum = 4;
+    state.buttonStateSetter(stateNum);
+    state.buttonStateFunctions();
+    delay(2000);
+  } else {
+    stateNum = ws.getStateNumber();
+    Serial.print("Main Serial Num: ");
+    Serial.println(stateNum);
+    state.buttonStateSetter(stateNum);
+  }
+  state.buttonStateFunctions();
+  bd.ReadVoltage();
+  //delay(10);
 }

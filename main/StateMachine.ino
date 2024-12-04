@@ -66,8 +66,8 @@ void StateMachine::initPins() {
 // function : conditionals that run based on the current buttonState
 // arguments : buttonState (the current button state from 0 to 6)
 // returns : none
-void StateMachine::buttonStateFunctions(int buttonState) {
-  Serial.println(buttonState);
+void StateMachine::buttonStateFunctions() {
+  //Serial.println(buttonState);
   if(buttonState == 0){
     initPins();
   }
@@ -104,28 +104,26 @@ void StateMachine::buttonStateFunctions(int buttonState) {
   if(buttonState == 3){ // PIVOT CLOCKWISE
     buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeedLeft);
-    analogWrite(rightWheelInputA, analogWriteSpeed2);
+    analogWrite(rightWheelInputB, analogWriteSpeedTurn);
   }
   if(buttonState == 4){ //PIVOT COUNTERCLOCKWISE
     buttonStateResetPins();
-    analogWrite(leftWheelInputA, analogWriteSpeed2);
+    analogWrite(leftWheelInputB, analogWriteSpeedTurn);
     analogWrite(rightWheelInputA, analogWriteSpeedRight);
   }
   if(buttonState == 5){
     buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeedLeft);
-    analogWrite(rightWheelInputA, analogWriteSpeed2);
-    delay(2000);
-    digitalWrite(leftWheelInputA, LOW);
-    digitalWrite(rightWheelInputA, LOW);
+    analogWrite(rightWheelInputA, analogWriteSpeedRadiusTurn);
+    delay(1000);
+    buttonState = 1;
   }
   if(buttonState == 6){
     buttonStateResetPins();
-    analogWrite(leftWheelInputA, analogWriteSpeed2);
+    analogWrite(leftWheelInputA, analogWriteSpeedRadiusTurn);
     analogWrite(rightWheelInputA, analogWriteSpeedRight);
-    delay(2000);
-    digitalWrite(leftWheelInputA, LOW);
-    digitalWrite(rightWheelInputA, LOW);
+    delay(1000);
+    buttonState = 1;
   }
 }
 
@@ -142,6 +140,9 @@ void StateMachine::buttonStateResetPins() {
     digitalWrite(rightWheelInputB, LOW);
 }
 
+void StateMachine::buttonStateSetter(int bState){
+  buttonState = bState;
+}
 
 
 

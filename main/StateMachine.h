@@ -17,9 +17,16 @@ const int enableRightWheel = 7;
 const int rightWheelInputA = 6;
 const int rightWheelInputB = 3;
 const int buttonPin = 5;     // the number of the pushbutton pin
-const int analogWriteSpeedLeft = 125;
-const int analogWriteSpeedRight = 130;
-const int analogWriteSpeedReverse = 127;
+// const int analogWriteSpeedLeft = 125;
+// const int analogWriteSpeedRight = 130;
+// const int analogWriteSpeedReverse = 127;
+// const int analogWriteSpeedTurn = 90;
+// const int analogWriteSpeedRadiusTurn = 60;
+const int analogWriteSpeedLeft = 135;
+const int analogWriteSpeedRight = 120;
+const int analogWriteSpeedReverse = 130;
+const int analogWriteSpeedTurn = 90;
+const int analogWriteSpeedRadiusTurn = 60;
 
 // Constants Used for Sweeping Logic
 const int analogWriteSpeed2 = 40;
@@ -35,11 +42,11 @@ class StateMachine
     StateMachine();
     void begin();
     void initPins();
-    void buttonStateFunctions(int buttonState);
+    void buttonStateFunctions();
     void buttonStateResetPins();
+    void buttonStateSetter(int bState);
   private:
     volatile int buttonState = 0;         // variable for reading the pushbutton status
-    volatile bool buttonPressed = false;  // flag to indicate if the button was pressed
 };
 
 #endif
