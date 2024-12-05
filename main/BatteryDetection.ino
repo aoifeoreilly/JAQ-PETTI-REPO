@@ -65,10 +65,10 @@ void BatteryDetection::ReadVoltage() {
   String b_msg = "Battery is High";
   int test = analogRead(A4);
   BatteryVoltage = (test * 5) / 1023;
-  Serial.print("Testing Analog Read: ");
-  Serial.println(test);
-  Serial.print("BatteryVoltage: ");
-  Serial.println(BatteryVoltage);
+  // Serial.print("Testing Analog Read: ");
+  // Serial.println(test);
+  // Serial.print("BatteryVoltage: ");
+  // Serial.println(BatteryVoltage);
   if ((BatteryVoltage < 2.35) and client.connected()) {
     if (!BatteryLowDetected) {
       client.beginMessage(TYPE_TEXT);

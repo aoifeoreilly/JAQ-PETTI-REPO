@@ -12,9 +12,9 @@
 
 const int enableLeftWheel = 13;
 const int leftWheelInputA = 10;
-const int leftWheelInputB = 9;
+const int leftWheelInputB = 6;
 const int enableRightWheel = 7;
-const int rightWheelInputA = 6;
+const int rightWheelInputA = 9;
 const int rightWheelInputB = 3;
 const int buttonPin = 5;     // the number of the pushbutton pin
 // const int analogWriteSpeedLeft = 125;

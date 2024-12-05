@@ -18,11 +18,11 @@ LightSensing::LightSensing(){
 // arguments : none
 // returns : none
 void LightSensing::begin(){
-  // pinMode(lightSensingLED_Red, OUTPUT);
-  // pinMode(lightSensingLED_Blue, OUTPUT);
-  // pinMode(lightSensingLEDS, OUTPUT);
-  // pinMode(photoTransistor, INPUT);
-  // initPins();
+  pinMode(lightSensingLED_Red, OUTPUT);
+  pinMode(lightSensingLED_Blue, OUTPUT);
+  pinMode(lightSensingLEDS, OUTPUT);
+  pinMode(photoTransistorLS, INPUT);
+  //initPins();
 }
 
 // name: initPins
@@ -46,12 +46,26 @@ void LightSensing::readPhotoTransistorValue(){
   // if (bufferIndex == cBuff){
   //   bufferIndex = 0;
   // }
-
-  
   // Serial.print("Value: ");
   // Serial.println(photoTransistorValue);
   // Serial.print("Average: ");
   // Serial.println(average);
+  digitalWrite(lightSensingLED_Red, HIGH);
+  digitalWrite(lightSensingLED_Blue, LOW);
+  photoTransistorReading = analogRead(photoTransistorLS);
+  Serial.print("Red AnalogRead: ");
+  Serial.print(photoTransistorReading);
+  Serial.println("----------------");
+  Serial.println(" ");
+
+  delay(500);
+  digitalWrite(lightSensingLED_Red, LOW);
+  digitalWrite(lightSensingLED_Blue, HIGH);
+  photoTransistorReading = analogRead(photoTransistorLS);
+  Serial.print("Blue AnalogRead: ");
+  Serial.println(photoTransistorReading);
+  Serial.println(" ");
+
 }
 
 // name: checkColor
@@ -61,3 +75,36 @@ void LightSensing::readPhotoTransistorValue(){
 void LightSensing::checkColor(){
 
 }
+
+// const int lightSensingLED_Red = 2;
+// const int lightSensingLED_Blue = 4;
+// const int photoTransistor = A4;
+// volatile int photoTransistorReading = 0;
+
+// void setup() {
+//   Serial.begin(9600);
+//   pinMode(lightSensingLED_Red, OUTPUT);
+//   pinMode(lightSensingLED_Blue, OUTPUT);
+//   pinMode(photoTransistor, INPUT);
+// }
+
+// void loop() {
+//   digitalWrite(lightSensingLED_Red, HIGH);
+//   digitalWrite(lightSensingLED_Blue, LOW);
+//   photoTransistorReading = analogRead(photoTransistor);
+//   Serial.print("Red AnalogRead: ");
+//   Serial.print(photoTransistorReading);
+//   Serial.println("----------------");
+//   Serial.println(" ");
+
+//   delay(500);
+//   digitalWrite(lightSensingLED_Red, LOW);
+//   digitalWrite(lightSensingLED_Blue, HIGH);
+//   photoTransistorReading = analogRead(photoTransistor);
+//   Serial.print("Blue AnalogRead: ");
+//   Serial.println(photoTransistorReading);
+//   Serial.println(" ");
+
+//   delay(500);
+// }
+

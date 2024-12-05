@@ -9,11 +9,11 @@
 #include "Arduino.h"
 
 const int lightSensingLEDS = 10; // ALL LIGHTS CAN BE POWERED USING ONE PIN
-const int lightSensingLED_Red = 11;
-const int lightSensingLED_Blue = 12;
-const int photoTransistor_Blue = A4;
-const int photoTransistor_Red = A5;
+const int lightSensingLED_Red = 5;
+const int lightSensingLED_Blue = 11;
+const int photoTransistorLS = A4;
 const int cBuff_LS = 5;
+volatile int photoTransistorReading = 0;
 
 class LightSensing
 {

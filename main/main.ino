@@ -17,6 +17,7 @@ LightSensing ls;
 WebSocket ws;
 BatteryDetection bd;
 
+volatile int stateMachine = 0;
 volatile int stateNum = 0;
 volatile int previousStateNum = 0;
 String state0 = "State 0";
@@ -53,26 +54,26 @@ void loop() {
   ls.checkColor();
   ws.run();
   bool wallDetect = wall.getWallDetectedBool();
-  // Serial.println(wallDetect);
-  if (wallDetect) {
-    // client.beginMessage(TYPE_TEXT);
-    // client.print(state2);
-    // client.endMessage();  
-    // stateNum = 2;
-    // Serial.print("REVERSE: ");
-    // Serial.println(stateNum);
-    // state.buttonStateSetter(stateNum);
-    stateNum = 4;
-    state.buttonStateSetter(stateNum);
-    state.buttonStateFunctions();
-    delay(2000);
-  } else {
-    stateNum = ws.getStateNumber();
-    Serial.print("Main Serial Num: ");
-    Serial.println(stateNum);
-    state.buttonStateSetter(stateNum);
+  //Serial.println(wallDetect);
+  if (stateMachine = 0 and wallDetect) {
+  //   client.beginMessage(TYPE_TEXT);
+  //   client.print(state2);
+  //   client.endMessage();  
+  //   stateNum = 2;
+  //   Serial.print("REVERSE: ");
+  //   Serial.println(stateNum);
+  //   state.buttonStateSetter(stateNum);
+  //   stateNum = 4;
+  //   state.buttonStateSetter(stateNum);
+  //   state.buttonStateFunctions();
+  //   delay(1000);
+  // } else {
+  //   stateNum = ws.getStateNumber();
+  //   // Serial.print("Main Serial Num: ");
+  //   // Serial.println(stateNum);
+  //   state.buttonStateSetter(stateNum);
   }
-  state.buttonStateFunctions();
+  // state.buttonStateFunctions();
   bd.ReadVoltage();
   //delay(10);
 }
