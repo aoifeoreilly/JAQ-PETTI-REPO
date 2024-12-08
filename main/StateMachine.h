@@ -22,11 +22,18 @@ const int buttonPin = 5;     // the number of the pushbutton pin
 // const int analogWriteSpeedReverse = 127;
 // const int analogWriteSpeedTurn = 90;
 // const int analogWriteSpeedRadiusTurn = 60;
-const int analogWriteSpeedLeft = 135;
-const int analogWriteSpeedRight = 120;
-const int analogWriteSpeedReverse = 130;
-const int analogWriteSpeedTurn = 90;
-const int analogWriteSpeedRadiusTurn = 60;
+
+// const int analogWriteSpeedLeft = 135;
+// const int analogWriteSpeedRight = 125;
+// const int analogWriteSpeedReverse = 130;
+// const int analogWriteSpeedTurn = 90;
+// const int analogWriteSpeedRadiusTurn = 60;
+
+const int analogWriteSpeedLeft = 130;
+const int analogWriteSpeedRight = 150;
+const int analogWriteSpeedReverse = 60;
+const int analogWriteSpeedTurn = 75;
+const int analogWriteSpeedRadiusTurn = 30;
 
 // Constants Used for Sweeping Logic
 const int analogWriteSpeed2 = 40;

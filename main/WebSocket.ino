@@ -84,6 +84,10 @@ void WebSocket::checkStateNum(String message){
     state = 6;
   } else if (message.endsWith("State 0")){
     state = 0;
+  } else if (message.endsWith("JAQPETTI ASSEMBLE!")){
+    state = 7;
+  } else if (message.endsWith("JAQPETTI RESET!")){
+    state = 8;
   }
 }
 // name: getStateNumber

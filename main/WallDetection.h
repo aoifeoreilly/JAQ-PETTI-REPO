@@ -9,10 +9,10 @@
 #include "Arduino.h"
 
 const int cBuff = 1;
-const int wallVoltageInt = 830;
+const int wallVoltageInt = 860;
 const int voltageInt = 0;
 const int wallLED = 0;
-const int photoTransistor = A1;
+const int photoTransistor = A2;
 
 class WallDetection
 {

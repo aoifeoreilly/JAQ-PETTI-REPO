@@ -32,7 +32,7 @@
 #include "Arduino.h"
 #include "WebSocket.h"
 
-const int v_divider_pin = A2; //could change
+const int v_divider_pin = A1; //could change
 
 
 class BatteryDetection

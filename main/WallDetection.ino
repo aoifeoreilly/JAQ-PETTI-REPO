@@ -38,14 +38,15 @@ void WallDetection::initPins() {
 // returns : none
 void WallDetection::readPhotoTransistorValue() {
   photoTransistorValue = analogRead(photoTransistor);
-  int tempValue = circularBuffer[bufferIndex];
-  circularBuffer[bufferIndex++] = photoTransistorValue;
-  runningSum = runningSum - tempValue + photoTransistorValue;
-  average = runningSum/cBuff;
-  if (bufferIndex == cBuff){
-    bufferIndex = 0;
-  }
+  // int tempValue = circularBuffer[bufferIndex];
+  // circularBuffer[bufferIndex++] = photoTransistorValue;
+  // runningSum = runningSum - tempValue + photoTransistorValue;
+  // average = runningSum/cBuff;
+  // if (bufferIndex == cBuff){
+  //   bufferIndex = 0;
+  // }
   Serial.println(average);
+  // Serial.println(photoTransistorValue);
 }
 
 // name: checkWall
@@ -53,8 +54,8 @@ void WallDetection::readPhotoTransistorValue() {
 // arguments : none
 // returns : none
 void WallDetection::checkWall() {
-  if (average < wallVoltageInt){
-      //Serial.println("STOP: WALL DETECTED");
+  if (photoTransistorValue > wallVoltageInt){
+      Serial.println("STOP: WALL DETECTED");
       wallDetected = true;
   } else {
     wallDetected = false;

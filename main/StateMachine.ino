@@ -75,26 +75,6 @@ void StateMachine::buttonStateFunctions() {
     buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeedLeft);
     analogWrite(rightWheelInputA, analogWriteSpeedRight);
-
-    // if(buttonState == 1){ 
-   	// buttonStateResetPins();
-    //   // Current time in seconds
-    // float time = millis() / 1000.0;
-
-    // // Sine wave offset as time passes
-    // float sineValue = sin(2 * PI * sweepFrequency * time); // sin(ωt)
-
-    // // Calculate the PWM values for each wheel
-    // int leftPWM = analogWriteSpeed + amplitudePWM * sineValue; // vL = V+Asin(ωt)
-    // int rightPWM = analogWriteSlow - amplitudePWM * sineValue; // vR = V+Asin(ωt)
-
-    // // Apply PWM values to motors
-    // analogWrite(leftWheelInputA, leftPWM);
-    // analogWrite(rightWheelInputA, rightPWM);
-
-    //   // Short delay to control loop timing
-    // delay(10);
-
   }
   if(buttonState == 2){ //GO BACKWARDS
     buttonStateResetPins();
@@ -115,15 +95,11 @@ void StateMachine::buttonStateFunctions() {
     buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeedLeft);
     analogWrite(rightWheelInputA, analogWriteSpeedRadiusTurn);
-    delay(1000);
-    buttonState = 1;
   }
   if(buttonState == 6){
     buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeedRadiusTurn);
     analogWrite(rightWheelInputA, analogWriteSpeedRight);
-    delay(1000);
-    buttonState = 1;
   }
 }
 
