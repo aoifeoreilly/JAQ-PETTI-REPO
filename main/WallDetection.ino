@@ -45,8 +45,8 @@ void WallDetection::readPhotoTransistorValue() {
   // if (bufferIndex == cBuff){
   //   bufferIndex = 0;
   // }
-  Serial.println(average);
-  // Serial.println(photoTransistorValue);
+  //Serial.println(average);
+  Serial.println(photoTransistorValue);
 }
 
 // name: checkWall
@@ -54,7 +54,7 @@ void WallDetection::readPhotoTransistorValue() {
 // arguments : none
 // returns : none
 void WallDetection::checkWall() {
-  if (photoTransistorValue > wallVoltageInt){
+  if (photoTransistorValue < wallVoltageInt){
       Serial.println("STOP: WALL DETECTED");
       wallDetected = true;
   } else {
@@ -62,6 +62,10 @@ void WallDetection::checkWall() {
   }
 }
 
+// name: getWallDetectedBool
+// function : getter indicating whether or not a wall was detected
+// arguments : none
+// returns : none
 bool WallDetection::getWallDetectedBool() {
   return wallDetected;
 }

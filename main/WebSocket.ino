@@ -88,6 +88,8 @@ void WebSocket::checkStateNum(String message){
     state = 7;
   } else if (message.endsWith("JAQPETTI RESET!")){
     state = 8;
+  } else if (message.endsWith("JAQPETTI CALIBRATE!")){
+    state = 100;
   }
 }
 // name: getStateNumber

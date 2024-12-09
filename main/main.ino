@@ -49,15 +49,69 @@ void setup() {
 // arguments : none
 // returns : none
 void loop() {
+
+  ws.run();
+  stateNum = ws.getStateNumber();
+
+  if(stateNum == 8){
+    stateNum = 0;
+    stateMachine = 1;
+    state.buttonStateSetter(stateNum);
+    state.buttonStateFunctions();
+  }
+
+  // if(stateMachine == 1 and stateNum == 1){
+  //   stateNum = 1;
+  //   state.buttonStateSetter(stateNum);
+  //   state.buttonStateFunctions();
+  //   stateMachine += 1;
+  // }
+
+  // if(stateMachine == 2 and stateNum == 2){
+  //   stateNum = 2;
+  //   state.buttonStateSetter(stateNum);
+  //   state.buttonStateFunctions();
+  //   stateMachine += 1;
+  // }
+
+  //   if(stateMachine == 3 and stateNum == 3){
+  //   stateNum = 3;
+  //   state.buttonStateSetter(stateNum);
+  //   state.buttonStateFunctions();
+  //   stateMachine += 1;
+  // }
+
+  // if(stateMachine == 4 and stateNum == 4){
+  //   stateNum = 4;
+  //   state.buttonStateSetter(stateNum);
+  //   state.buttonStateFunctions();
+  //   stateMachine += 1;
+  // }
+
+  // if(stateMachine == 5 and stateNum == 5){
+  //   stateNum = 5;
+  //   state.buttonStateSetter(stateNum);
+  //   state.buttonStateFunctions();
+  //   stateMachine += 1;
+  // }
+
+  // if(stateMachine == 6 and stateNum == 6){
+  //   stateNum = 6;
+  //   state.buttonStateSetter(stateNum);
+  //   state.buttonStateFunctions();
+  //   stateMachine += 1;
+  // }
+
+
   wall.readPhotoTransistorValue();
   wall.checkWall();
   ls.readPhotoTransistorValue();
   ls.checkColor();
   int lightSensingColor = ls.getColor();
-  ws.run();
   bool wallDetect = wall.getWallDetectedBool();
-  stateNum = ws.getStateNumber();
-  int color = ls.getColor();
+  // int color = ls.getColor();
+  // Serial.print("Color Num: ");
+  // Serial.println(lightSensingColor);
 
   if (lightSensingColor == 1){
     Serial.println("BLACK");
@@ -71,34 +125,38 @@ void loop() {
     Serial.println("UNKNOWN :(");
   }
 
-  //BLACK = 1
-  //BLUE = 2
-  //RED = 3
-  //YELLOW = 4
-  //UNKNOWN = 5
-  // Serial.print("StateMachine: ");
-  // Serial.println(stateMachine);
-  // Serial.print("StateNum: ");
-  // Serial.println(stateNum);
+  // if (stateMachine == 0 and stateNum == 7){
+  //   stateNum = 1;
+  //   state.buttonStateSetter(stateNum);
+  //   state.buttonStateFunctions();
+  //   stateMachine += 1;
+  // }
 
   if(stateNum == 8){
-    stateNum = 0;
+    stateNum == 0;
+    stateMachine == 1;
     state.buttonStateSetter(stateNum);
-    stateMachine = 0;
     state.buttonStateFunctions();
   }
 
-  if (stateMachine == 0 and stateNum == 7){
-    stateNum = 1;
+  if(stateMachine == 0 and stateNum == 100){
+    ls.calibrate();
+    stateNum = 0;
     state.buttonStateSetter(stateNum);
     state.buttonStateFunctions();
     stateMachine += 1;
   }
   // Serial.println(wallDetect);
+  if(stateMachine == 1 and stateNum == 7){
+    stateNum = 1;
+    state.buttonStateSetter(stateNum);
+    state.buttonStateFunctions();
+    stateMachine += 1;
+  }
 
 
 
-  if (stateMachine == 1 and wallDetect) {
+  if (stateMachine == 2 and wallDetect) {
     // client.beginMessage(TYPE_TEXT);
     // client.print(state2);
     // client.endMessage();
@@ -112,7 +170,7 @@ void loop() {
     // Serial.println(stateNum);
     state.buttonStateSetter(stateNum);
     state.buttonStateFunctions();
-    delay(1000);
+    delay(1600);
 
     stateNum = 1;
     state.buttonStateSetter(stateNum);
@@ -123,10 +181,17 @@ void loop() {
     stateMachine += 1;                     // State 0 is done, 
   }
 
-  if(stateMachine == 2 and color == 3){
-    stateNum = 0;
+  if(stateMachine == 3 and lightSensingColor == 3){
+    stateNum = 3;
     state.buttonStateSetter(stateNum);
     state.buttonStateFunctions();
+    delay(850);
+    stateNum = 1;
+    state.buttonStateSetter(stateNum);
+    state.buttonStateFunctions();
+    delay(1000);
+
+
     // delay(500);
     // stateNum = 1; 
     // state.buttonStateSetter(stateNum);
@@ -142,6 +207,105 @@ void loop() {
     stateMachine += 1; //State 1 is done
   }
 
+  if(stateMachine == 4){
+    int lsColor = ls.getColor();
+    int stateLS = ls.laneFollowing(lsColor);
+    if(!wallDetect){
+      state.buttonStateSetter(stateLS);
+      state.buttonStateFunctions();
+      delay(250);
+    } else {
+      stateNum = 0;
+      state.buttonStateSetter(stateNum);
+      state.buttonStateFunctions();
+      stateMachine += 1;
+      ls.setLeftRight(false);
+    }
+  }
+
+    if(stateMachine == 5){
+      stateNum = 3;
+      state.buttonStateSetter(stateNum);
+      state.buttonStateFunctions();
+      delay(1100);
+      stateNum = 1;
+      state.buttonStateSetter(stateNum);
+      state.buttonStateFunctions();
+
+      stateMachine += 1;
+    }
+
+    if(stateMachine == 6 and lightSensingColor == 4){
+      stateNum = 3;
+      state.buttonStateSetter(stateNum);
+      state.buttonStateFunctions();
+      delay(600);
+      stateNum = 1;
+      state.buttonStateSetter(stateNum);
+      state.buttonStateFunctions();
+      stateMachine += 1;
+    }
+
+  if(stateMachine == 7){
+    int lsColor = ls.getColor();
+    int stateLS = ls.laneFollowing(lsColor);
+    if(!wallDetect){
+      state.buttonStateSetter(stateLS);
+      state.buttonStateFunctions();
+      delay(250);
+    } else {
+      stateNum = 0;
+      state.buttonStateSetter(stateNum);
+      state.buttonStateFunctions();
+      stateMachine += 1;
+      ls.setLeftRight(false);
+    }
+  }
+
+  if(stateMachine == 8){
+    stateNum = 3;
+    state.buttonStateSetter(stateNum);
+    state.buttonStateFunctions();
+    delay(1100);
+    stateNum = 1;
+    state.buttonStateSetter(stateNum);
+    state.buttonStateFunctions();
+    delay(1700);
+
+    stateMachine += 1;
+  }
+
+  if (stateMachine == 9) {
+    if(wallDetect){
+      stateNum = 4;
+      state.buttonStateSetter(stateNum);
+      state.buttonStateFunctions();
+      delay(1700);
+      stateNum = 0;    
+      state.buttonStateSetter(stateNum);
+      state.buttonStateFunctions();   
+      stateMachine += 1;   
+    }       
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Serial.print("stateNum: ");
+  // Serial.println(stateNum);
+  // Serial.print("stateMachine: ");
+  // Serial.println(stateMachine);
+
   // if
   // } else {
   //   // stateNum = ws.getStateNumber();
@@ -149,6 +313,7 @@ void loop() {
   //   // // Serial.println(stateNum);
   //   // state.buttonStateSetter(stateNum);
   // }
-  //state.buttonStateFunctions();
+  // state.buttonStateFunctions();
   // bd.ReadVoltage();
 }
+

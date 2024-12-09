@@ -9,7 +9,7 @@
 #include "Arduino.h"
 
 const int cBuff = 1;
-const int wallVoltageInt = 860;
+const int wallVoltageInt = 670;
 const int voltageInt = 0;
 const int wallLED = 0;
 const int photoTransistor = A2;

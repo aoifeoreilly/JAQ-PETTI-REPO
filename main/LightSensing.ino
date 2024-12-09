@@ -51,7 +51,7 @@ void LightSensing::readPhotoTransistorValue(){
 
   digitalWrite(lightSensingLED_Red, HIGH);
   digitalWrite(lightSensingLED_Blue, LOW);
-  delay(80);
+  delay(40);
   photoTransistorRed = analogRead(photoTransistorLS);
   int tempValueRed = circularBufferRed[bufferIndexRed];
   circularBufferRed[bufferIndexRed++] = photoTransistorRed;
@@ -61,15 +61,15 @@ void LightSensing::readPhotoTransistorValue(){
     bufferIndexRed = 0;
   }
   Serial.print("Red AnalogRead: ");
-  Serial.print(photoTransistorRed);
-  Serial.println("----------------");
-  Serial.println(" ");
+  Serial.println(photoTransistorRed);
+  Serial.println("");
+  // Serial.println("----------------");
 
-  delay(80);
+  delay(40);
 
   digitalWrite(lightSensingLED_Red, LOW);
   digitalWrite(lightSensingLED_Blue, HIGH);
-  delay(80);
+  delay(40);
   photoTransistorBlue = analogRead(photoTransistorLS);
   int tempValueBlue = circularBufferBlue[bufferIndexBlue];
   circularBufferBlue[bufferIndexBlue++] = photoTransistorBlue;
@@ -80,7 +80,8 @@ void LightSensing::readPhotoTransistorValue(){
   }
   Serial.print("Blue AnalogRead: ");
   Serial.println(photoTransistorBlue);
-  delay(80);
+  Serial.println("");
+  delay(40);
 
 }
 
@@ -95,44 +96,210 @@ int LightSensing::checkColor(){
   //YELLOW = 4
   //UNKNOWN = 5
 
-  // if(photoTransistorBlue > 340 and photoTransistorBlue < 390){
-  //   color = 2;
-  // } else if (photoTransistorRed > 300 and photoTransistorBlue < 250) {
-  //   color = 3;
-  // } else if (photoTransistorBlue < 190){
-  //   color = 4;
-  // } else if (photoTransistorRed > 500) {
+  // if (photoTransistorRed > photoTransistorRed_Black_Min and photoTransistorRed < photoTransistorRed_Black_Max and photoTransistorBlue > photoTransistorBlue_Black_Min and photoTransistorBlue < photoTransistorBlue_Black_Max){
   //   color = 1;
+  // } else if (photoTransistorRed > photoTransistorRed_Blue_Min and photoTransistorRed < photoTransistorRed_Blue_Max and photoTransistorBlue > photoTransistorBlue_Blue_Min and photoTransistorBlue < photoTransistorBlue_Blue_Max){
+  //   color = 2;
+  // } else if (photoTransistorRed > photoTransistorRed_Red_Min and photoTransistorRed < photoTransistorRed_Red_Max and photoTransistorBlue > photoTransistorBlue_Red_Min and photoTransistorBlue < photoTransistorBlue_Red_Max){
+  //   color = 3;
+  // } else if (photoTransistorRed > photoTransistorRed_Yellow_Min and photoTransistorRed < photoTransistorRed_Yellow_Max and photoTransistorBlue > photoTransistorBlue_Yellow_Min and photoTransistorBlue < photoTransistorBlue_Yellow_Max){
+  //   color = 4;
   // } else {
   //   color = 5;
   // }
-  if (photoTransistorRed < 210 and photoTransistorRed < 210){
-    color = 4;
-  } else if(photoTransistorBlue < 340 and photoTransistorRed < 340){
-    color = 2;
-  } else if (photoTransistorRed > 300 and photoTransistorBlue < 250) {
+
+  if (photoTransistorRed > photoTransistorRed_Red_Min and photoTransistorRed < photoTransistorRed_Red_Max and photoTransistorBlue > photoTransistorBlue_Red_Min and photoTransistorBlue < photoTransistorBlue_Red_Max){
     color = 3;
-  } else if (photoTransistorBlue > 350 and photoTransistorRed > 350) {
+  } else if (photoTransistorRed > photoTransistorRed_Yellow_Min and photoTransistorRed < photoTransistorRed_Yellow_Max and photoTransistorBlue > photoTransistorBlue_Yellow_Min and photoTransistorBlue < photoTransistorBlue_Yellow_Max){
+    color = 4;
+  } else if (photoTransistorRed > photoTransistorRed_Blue_Min and photoTransistorRed < photoTransistorRed_Blue_Max and photoTransistorBlue > photoTransistorBlue_Blue_Min and photoTransistorBlue < photoTransistorBlue_Blue_Max){
+    color = 2;
+  } else if (photoTransistorRed > photoTransistorRed_Black_Min and photoTransistorRed < photoTransistorRed_Black_Max and photoTransistorBlue > photoTransistorBlue_Black_Min and photoTransistorBlue < photoTransistorBlue_Black_Max){
     color = 1;
   } else {
     color = 5;
   }
-
-  // if(photoTransistorBlue > 420 and photoTransistorRed < 275){
-  //   color = 2;
-  // } else if (photoTransistorBlue < 275 and photoTransistorBlue > 230){
-  //   color = 3;
-  // } else if (photoTransistorBlue < 200 and photoTransistorRed < 200){
-  //   color = 4;
-  // } else if (photoTransistorBlue > 500) {
-  //   color = 1;
-  // } else {
-  //   color = 5;
-  // }
-  // Serial.print("Color: ");
-  // Serial.println(color);
 }
 
 int LightSensing::getColor(){
   return color;
 }
+
+bool LightSensing::getCalibrationBool(){
+  return calibrationDone;
+}
+
+void LightSensing::turnOnRedLED(){
+  digitalWrite(lightSensingLED_Red, HIGH);
+  digitalWrite(lightSensingLED_Blue, LOW);
+}
+
+void LightSensing::turnOnBlueLED(){
+  digitalWrite(lightSensingLED_Red, LOW);
+  digitalWrite(lightSensingLED_Blue, HIGH);
+}
+
+void LightSensing::turnOffLED(){
+  digitalWrite(lightSensingLED_Red, LOW);
+  digitalWrite(lightSensingLED_Blue, LOW);
+}
+
+int LightSensing::calibrate(){
+  // CALIBRATES COLOR ON RED
+  turnOnRedLED();
+  photoTransistorRedValue = calibrationLoop();
+  photoTransistorRed_Red_Min = photoTransistorRedValue - plusMinus;
+  photoTransistorRed_Red_Max = photoTransistorRedValue + plusMinus;
+  photoTransistorRedValue = 0;
+  delay(200);
+  turnOnBlueLED();
+  photoTransistorRedValue = calibrationLoop();
+  photoTransistorBlue_Red_Min = photoTransistorRedValue - plusMinus;
+  photoTransistorBlue_Red_Max = photoTransistorRedValue + plusMinus;
+  photoTransistorRedValue = 0;
+  turnOffLED();
+  delay(2000);
+
+  //CALIBRATES COLOR ON YELLOW
+  turnOnRedLED();
+  photoTransistorYellowValue = calibrationLoop();
+  photoTransistorRed_Yellow_Min = photoTransistorYellowValue - plusMinus;
+  photoTransistorRed_Yellow_Max = photoTransistorYellowValue + plusMinus;
+  photoTransistorYellowValue = 0;
+  delay(200);
+  turnOnBlueLED();
+  photoTransistorYellowValue = calibrationLoop();
+  photoTransistorBlue_Yellow_Min = photoTransistorYellowValue - plusMinus;
+  photoTransistorBlue_Yellow_Max = photoTransistorYellowValue + plusMinus;
+  photoTransistorYellowValue = 0;
+  turnOffLED();
+  delay(2000);
+
+  //CALIBRATES COLOR ON BLUE
+  turnOnRedLED();
+  photoTransistorBlueValue = calibrationLoop();
+  photoTransistorRed_Blue_Min = photoTransistorBlueValue - plusMinus;
+  photoTransistorRed_Blue_Max = photoTransistorBlueValue + plusMinus;
+  photoTransistorBlueValue = 0;
+  delay(200);
+  turnOnBlueLED();
+  photoTransistorBlueValue = calibrationLoop();
+  photoTransistorBlue_Blue_Min = photoTransistorBlueValue - plusMinus;
+  photoTransistorBlue_Blue_Max = photoTransistorBlueValue + plusMinus;
+  photoTransistorBlueValue = 0;
+  turnOffLED();
+  delay(2000);
+
+  // CALIBRATES ON BLACK
+  turnOnRedLED();
+  photoTransistorBlackValue = calibrationLoop();
+  photoTransistorRed_Black_Min = photoTransistorBlackValue - plusMinus;
+  photoTransistorRed_Black_Max = photoTransistorBlackValue + plusMinus;
+  photoTransistorBlackValue = 0;
+  delay(200);
+  turnOnBlueLED();
+  photoTransistorBlackValue = calibrationLoop();
+  photoTransistorBlue_Black_Min = photoTransistorBlackValue - plusMinus;
+  photoTransistorBlue_Black_Max = photoTransistorBlackValue + plusMinus;
+  photoTransistorBlackValue = 0;
+  turnOffLED();
+  delay(2000);
+
+  Serial.print("Red - Red Min: ");
+  Serial.println(photoTransistorRed_Red_Min);
+  Serial.print("Red - Red Max: ");
+  Serial.println(photoTransistorRed_Red_Max);
+  Serial.print("Blue - Blue Min: ");
+  Serial.println(photoTransistorBlue_Red_Min);
+  Serial.print("Blue - Blue Max: ");
+  Serial.println(photoTransistorBlue_Red_Max);
+  Serial.println("");
+
+  Serial.print("Yellow - Red Min: ");
+  Serial.println(photoTransistorRed_Yellow_Min);
+  Serial.print("Yellow - Red Max: ");
+  Serial.println(photoTransistorRed_Yellow_Max);
+  Serial.print("Yellow - Blue Min: ");
+  Serial.println(photoTransistorBlue_Yellow_Min);
+  Serial.print("Yellow - Blue Max: ");
+  Serial.println(photoTransistorBlue_Yellow_Max);
+  Serial.println("");
+
+  Serial.print("Blue - Red Min: ");
+  Serial.println(photoTransistorRed_Blue_Min);
+  Serial.print("Blue - Red Max: ");
+  Serial.println(photoTransistorRed_Blue_Max);
+  Serial.print("Blue - Blue Min: ");
+  Serial.println(photoTransistorBlue_Blue_Min);
+  Serial.print("Blue - Blue Max: ");
+  Serial.println(photoTransistorBlue_Blue_Max);
+  Serial.println("");
+
+  Serial.print("Black - Red Min: ");
+  Serial.println(photoTransistorRed_Black_Min);
+  Serial.print("Black - Red Max: ");
+  Serial.println(photoTransistorRed_Black_Max);
+  Serial.print("Black - Blue Min: ");
+  Serial.println(photoTransistorBlue_Black_Min);
+  Serial.print("Black - Blue Max: ");
+  Serial.println(photoTransistorBlue_Black_Max);
+  Serial.println("");
+}
+
+int LightSensing::calibrationLoop(){
+  averageValue = 0;
+  photoTransistorCalibration = 0;
+  for(int i = 0; i < loopNum; i++){
+    photoTransistorCalibration = analogRead(photoTransistorLS);
+    // Serial.print("photoTransistorCalibration: ");
+    // Serial.println(photoTransistorCalibration);
+    averageValue += photoTransistorCalibration;
+    // Serial.print("averageValue in Loop: ");
+    // Serial.println(averageValue);
+    delay(50);
+  }
+  // Serial.print("averageValue before division: ");
+  // Serial.println(averageValue);
+  averageValue = averageValue / loopNum;
+  // Serial.print("averageValue: ");
+  // Serial.println(averageValue);
+  return averageValue;
+}
+
+int LightSensing::laneFollowing(int colorDetected){
+  // newColor = colorDetected;
+  // if(newColor == oldColor){
+  //   oldColor = color;
+  //   return 1;
+  // } else {
+  //   if(leftRight == false){
+  //     leftRight = true;
+  //     oldColor = color;
+  //     return 5;
+  //   } else if (leftRight == true) {// if (leftRight == false){
+  //     leftRight = false;
+  //     oldColor = color;
+  //     return 6;
+  //   } else {
+  //     oldColor = color;
+  //     return 1;
+  //   }
+  // }
+  if ((colorDetected == 3 or colorDetected == 4) and leftRight == false){
+    leftRight = true;
+    return 6;
+  } else {//if ((colorDetected = 5 and leftRight == true){
+    leftRight = false;
+    return 5;
+  }
+}
+
+bool LightSensing::setLeftRight(bool leftRightSet){
+  leftRight = leftRightSet;
+}
+
+  //BLACK = 1
+  //BLUE = 2
+  //RED = 3
+  //YELLOW = 4
+  //UNKNOWN = 5

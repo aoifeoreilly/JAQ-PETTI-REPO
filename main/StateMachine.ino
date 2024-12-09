@@ -78,25 +78,25 @@ void StateMachine::buttonStateFunctions() {
   }
   if(buttonState == 2){ //GO BACKWARDS
     buttonStateResetPins();
-    analogWrite(leftWheelInputB, analogWriteSpeedReverse);
-    analogWrite(rightWheelInputB, analogWriteSpeedLeft);
+    analogWrite(leftWheelInputB, analogWriteSpeedLeft);
+    analogWrite(rightWheelInputB, analogWriteSpeedRight);
   }
-  if(buttonState == 3){ // PIVOT CLOCKWISE
+  if(buttonState == 3){ // PIVOT COUNTERCLOCKWISE
     buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeedLeft);
     analogWrite(rightWheelInputB, analogWriteSpeedTurn);
   }
-  if(buttonState == 4){ //PIVOT COUNTERCLOCKWISE
+  if(buttonState == 4){ //PIVOT CLOCKWISE
     buttonStateResetPins();
     analogWrite(leftWheelInputB, analogWriteSpeedTurn);
     analogWrite(rightWheelInputA, analogWriteSpeedRight);
   }
-  if(buttonState == 5){
+  if(buttonState == 5){ // TURN LEFT
     buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeedLeft);
     analogWrite(rightWheelInputA, analogWriteSpeedRadiusTurn);
   }
-  if(buttonState == 6){
+  if(buttonState == 6){ // TURN RIGHT
     buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeedRadiusTurn);
     analogWrite(rightWheelInputA, analogWriteSpeedRight);
@@ -119,6 +119,7 @@ void StateMachine::buttonStateResetPins() {
 void StateMachine::buttonStateSetter(int bState){
   buttonState = bState;
 }
+
 
 
 
