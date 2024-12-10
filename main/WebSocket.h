@@ -31,10 +31,26 @@ class WebSocket
     void checkNumbers(String message);
     int getStateNumber();
     int getDelayNumber();
+    void calculateDelay();
+    int getDelayAmountNumber();
+    bool getResetTwirl();
+    void setResetTwirl(bool twirl);
+  
+
   private:
     String readMessage;
     int state = 0;
-    int delayNum = 1;
+    int delayNum = 0;
+    bool tenPlus = false;
+    bool tenMinus = false;
+    bool fiftyPlus = false;
+    bool fiftyMinus = false;
+    bool hundredPlus = false;
+    bool hundredMinus = false;
+    bool resetTwirl = false;
+
+    int delayState = 0;
+    int delayAmount = 1950;
 };
 
 #endif

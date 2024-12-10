@@ -54,12 +54,37 @@ void WallDetection::readPhotoTransistorValue() {
 // arguments : none
 // returns : none
 void WallDetection::checkWall() {
-  if (photoTransistorValue < wallVoltageInt){
+
+// const int wallVoltageWall1 = 580;
+// const int wallVoltageWall2 = 640;
+// const int wallVoltageWall3 = 575;
+// const int wallVoltageWall4 = 620;
+
+  if ((photoTransistorValue < wallVoltageWall1 + plusMinusWD and photoTransistorValue > wallVoltageWall1 - plusMinusWD) and (wallNum == 1) and (wallDetected == false)){
       Serial.println("STOP: WALL DETECTED");
       wallDetected = true;
-  } else {
+      wallNum += 1;
+  }
+  else if ((photoTransistorValue < wallVoltageWall2 + plusMinusWD and photoTransistorValue > wallVoltageWall2 - plusMinusWD) and (wallNum == 2) and (wallDetected == false)){
+      Serial.println("STOP: WALL DETECTED");
+      wallDetected = true;
+      wallNum += 1;
+  }
+  else if ((photoTransistorValue < wallVoltageWall3 + plusMinusWD and photoTransistorValue > wallVoltageWall3 - plusMinusWD) and (wallNum == 3) and (wallDetected == false)){
+      Serial.println("STOP: WALL DETECTED");
+      wallDetected = true;
+      wallNum += 1;
+  }
+  else if ((photoTransistorValue < wallVoltageWall4 + plusMinusWD and photoTransistorValue > wallVoltageWall4 - plusMinusWD) and (wallNum == 4) and (wallDetected == false)){
+      Serial.println("STOP: WALL DETECTED");
+      wallDetected = true;
+      wallNum += 1;
+  }
+  else {
     wallDetected = false;
   }
+
+  Serial.println(wallNum);
 }
 
 // name: getWallDetectedBool
@@ -68,4 +93,8 @@ void WallDetection::checkWall() {
 // returns : none
 bool WallDetection::getWallDetectedBool() {
   return wallDetected;
+}
+
+int WallDetection::setWallNum(int WallNum){
+  wallNum = WallNum;
 }

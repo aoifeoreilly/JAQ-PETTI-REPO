@@ -9,7 +9,13 @@
 #include "Arduino.h"
 
 const int cBuff = 1;
-const int wallVoltageInt = 670;
+const int wallVoltageInt = 615;
+const int wallVoltageWall1 = 615;
+const int wallVoltageWall2 = 620;
+const int wallVoltageWall3 = 620;
+const int wallVoltageWall4 = 630;
+
+const int plusMinusWD = 5;
 const int voltageInt = 0;
 const int wallLED = 0;
 const int photoTransistor = A2;
@@ -23,6 +29,7 @@ class WallDetection
     void readPhotoTransistorValue();
     void checkWall();
     bool getWallDetectedBool();
+    int WallDetection::setWallNum(int WallNum);
     
   private:
     int photoTransistorValue = 0;
@@ -31,6 +38,7 @@ class WallDetection
     int circularBuffer[cBuff];
     int bufferIndex = 0;
     int average = 250;
+    int wallNum = 1;
     bool wallDetected = false; 
 };
 

@@ -60,9 +60,9 @@ void LightSensing::readPhotoTransistorValue(){
   if(bufferIndexRed == cBuff){
     bufferIndexRed = 0;
   }
-  Serial.print("Red AnalogRead: ");
-  Serial.println(photoTransistorRed);
-  Serial.println("");
+  // Serial.print("Red AnalogRead: ");
+  // Serial.println(photoTransistorRed);
+  // Serial.println("");
   // Serial.println("----------------");
 
   delay(40);
@@ -78,9 +78,9 @@ void LightSensing::readPhotoTransistorValue(){
   if(bufferIndexBlue == cBuff){
     bufferIndexBlue = 0;
   }
-  Serial.print("Blue AnalogRead: ");
-  Serial.println(photoTransistorBlue);
-  Serial.println("");
+  // Serial.print("Blue AnalogRead: ");
+  // Serial.println(photoTransistorBlue);
+  // Serial.println("");
   delay(40);
 
 }
@@ -287,10 +287,10 @@ int LightSensing::laneFollowing(int colorDetected){
   // }
   if ((colorDetected == 3 or colorDetected == 4) and leftRight == false){
     leftRight = true;
-    return 6;
+    return 5;
   } else {//if ((colorDetected = 5 and leftRight == true){
     leftRight = false;
-    return 5;
+    return 6;
   }
 }
 
