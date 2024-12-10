@@ -29,6 +29,12 @@ String state4 = "State 4";
 String state5 = "State 5";
 String state6 = "State 6";
 
+volatile int delayTester = 0;
+volatile int delayAmount = 0;
+const int delay_180 = 50;
+const int delay_90 = 25;
+
+
 
 // name: setup
 // function : serves as the setup of the arduino, enabling all pins 
@@ -52,10 +58,11 @@ void loop() {
 
   ws.run();
   stateNum = ws.getStateNumber();
-
+  delayTester = ws.getDelayNumber();
   if(stateNum == 8){
     stateNum = 0;
     stateMachine = 1;
+    delayTester = 0;
     state.buttonStateSetter(stateNum);
     state.buttonStateFunctions();
   }

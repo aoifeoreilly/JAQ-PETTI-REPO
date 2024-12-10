@@ -55,7 +55,7 @@ void WebSocket::run(){
       readMessage = client.readString();
       Serial.println("Received a message:");
       Serial.println(readMessage);
-      checkStateNum(readMessage);
+      checkNumbers(readMessage);
     }
 
     // wait 10ms
@@ -65,11 +65,11 @@ void WebSocket::run(){
   }
 }
 
-// name: checkStateNum
+// name: checkNumbers
 // function : checks the message for WebSocket, parses it to only see the end, and changes states depending on message conditionals
 // arguments : a string with the message from WebSocket
 // returns : none
-void WebSocket::checkStateNum(String message){
+void WebSocket::checkNumbers(String message){
   if(message.endsWith("State 1")){
     state = 1;
   } else if (message.endsWith("State 2")){
@@ -91,6 +91,26 @@ void WebSocket::checkStateNum(String message){
   } else if (message.endsWith("JAQPETTI CALIBRATE!")){
     state = 100;
   }
+
+  if(message.endsWith("CHOOSE WHEEL SPEED 1")){
+    delayNum = 1;
+  } else if (message.endsWith("CHOOSE WHEEL SPEED 2")){
+    delayNum = 2;
+  } else if (message.endsWith("CHOOSE WHEEL SPEED 3")){
+    delayNum = 3;
+  } else if (message.endsWith("CHOOSE WHEEL SPEED 4")){
+    delayNum = 4;
+  } else if (message.endsWith("CHOOSE WHEEL SPEED 5")){
+    delayNum = 5;
+  } else if (message.endsWith("CHOOSE WHEEL SPEED 6")){
+    delayNum = 6;
+  } else if (message.endsWith("CHOOSE WHEEL SPEED 7")){
+    delayNum = 7;
+  } else if (message.endsWith("CHOOSE WHEEL SPEED 8")){
+    delayNum = 8;
+  } else if (message.endsWith("CHOOSE WHEEL SPEED 9")){
+    delayNum = 9;
+  }
 }
 // name: getStateNumber
 // function : getter for StateNumber
@@ -98,5 +118,9 @@ void WebSocket::checkStateNum(String message){
 // returns : none
 int WebSocket::getStateNumber(){
   return state;
+}
+    
+int WebSocket::getDelayNumber(){
+  return delayNum;
 }
 

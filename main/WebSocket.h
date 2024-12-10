@@ -28,11 +28,13 @@ class WebSocket
   public:
     void begin();
     void run();
-    void checkStateNum(String message);
+    void checkNumbers(String message);
     int getStateNumber();
+    int getDelayNumber();
   private:
     String readMessage;
     int state = 0;
+    int delayNum = 1;
 };
 
 #endif
