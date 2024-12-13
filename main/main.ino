@@ -99,18 +99,10 @@ void loop() {
   botStateMain = ws.getBotState();
 
   if (botStateMain == 1){
-    firstColor = 3;
+    firstColor = 3; //RED
   } else if (botStateMain == 2){
-    firstColor = 2;
+    firstColor = 2; //BLUE
   }
-
-  // Serial.print("delayNumber: ");
-  // Serial.println(delayNumber);
-
-  // Serial.print("resetTwirl: ");
-  // Serial.println(delayBool);
-
-  
 
   if(delayState == 7 and !delayBool){
     stateNum = 3;
