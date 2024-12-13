@@ -9,7 +9,7 @@
 // function : creates an instance of LightSensing and calls begin() function.
 // arguments : none
 // returns : none
-LightSensing::LightSensing(){
+LightSensing::LightSensing() {
   begin();
 }
 
@@ -17,7 +17,7 @@ LightSensing::LightSensing(){
 // function : sets the pinMode of each pin and initializes the pins accordingly
 // arguments : none
 // returns : none
-void LightSensing::begin(){
+void LightSensing::begin() {
   pinMode(lightSensingLED_Red, OUTPUT);
   pinMode(lightSensingLED_Blue, OUTPUT);
   pinMode(photoTransistorLS, INPUT);
@@ -27,14 +27,14 @@ void LightSensing::begin(){
 // function : initializes the pins to aid in the LightSensing functionality
 // arguments : none
 // returns : none
-void LightSensing::initPins(){
+void LightSensing::initPins() {
 }
 
 // name: readPhotoTransistorValue
 // function : takes reading from phototransistor and inserts into a circular buffer
 // arguments : none
 // returns : none
-void LightSensing::readPhotoTransistorValue(){
+void LightSensing::readPhotoTransistorValue() {
   // photoTransistorValue = analogRead(photoTransistor_LS);
   // int tempValue = circularBuffer[bufferIndex];
   // circularBuffer[bufferIndex++] = photoTransistorValue;
@@ -56,11 +56,13 @@ void LightSensing::readPhotoTransistorValue(){
   int tempValueRed = circularBufferRed[bufferIndexRed];
   circularBufferRed[bufferIndexRed++] = photoTransistorRed;
   runningSumRed = runningSumRed - tempValueRed + photoTransistorRed;
-  averageRed = runningSumRed/cBuff;
-  if(bufferIndexRed == cBuff){
+  averageRed = runningSumRed / cBuff;
+  if (bufferIndexRed == cBuff) {
     bufferIndexRed = 0;
   }
-  // Serial.print("Red AnalogRead: ");
+
+  Serial.print("Red AnalogRead: ");
+  Serial.println(averageRed);
   // Serial.println(photoTransistorRed);
   // Serial.println("");
   // Serial.println("----------------");
@@ -74,22 +76,22 @@ void LightSensing::readPhotoTransistorValue(){
   int tempValueBlue = circularBufferBlue[bufferIndexBlue];
   circularBufferBlue[bufferIndexBlue++] = photoTransistorBlue;
   runningSumBlue = runningSumBlue - tempValueBlue + photoTransistorBlue;
-  averageBlue = runningSumBlue/cBuff;
-  if(bufferIndexBlue == cBuff){
+  averageBlue = runningSumBlue / cBuff;
+  if (bufferIndexBlue == cBuff) {
     bufferIndexBlue = 0;
   }
-  // Serial.print("Blue AnalogRead: ");
-  // Serial.println(photoTransistorBlue);
-  // Serial.println("");
+  Serial.print("Blue AnalogRead: ");
+  Serial.println(averageBlue);
+  //Serial.println(photoTransistorBlue);
+  Serial.println("");
   delay(40);
-
 }
 
 // name: checkColor
 // function : handles logic for when circularBuffer reading falls into a certain range (depending on what color)
 // arguments : none
 // returns : none
-int LightSensing::checkColor(){
+int LightSensing::checkColor() {
   //BLACK = 1
   //BLUE = 2
   //RED = 3
@@ -108,54 +110,54 @@ int LightSensing::checkColor(){
   //   color = 5;
   // }
 
-  if (photoTransistorRed > photoTransistorRed_Red_Min and photoTransistorRed < photoTransistorRed_Red_Max and photoTransistorBlue > photoTransistorBlue_Red_Min and photoTransistorBlue < photoTransistorBlue_Red_Max){
+  if (averageRed > photoTransistorRed_Red_Min and averageRed < photoTransistorRed_Red_Max and averageBlue > photoTransistorBlue_Red_Min and averageBlue < photoTransistorBlue_Red_Max) {
     color = 3;
-  } else if (photoTransistorRed > photoTransistorRed_Yellow_Min and photoTransistorRed < photoTransistorRed_Yellow_Max and photoTransistorBlue > photoTransistorBlue_Yellow_Min and photoTransistorBlue < photoTransistorBlue_Yellow_Max){
+  } else if (averageRed > photoTransistorRed_Yellow_Min and averageRed < photoTransistorRed_Yellow_Max and averageBlue > photoTransistorBlue_Yellow_Min and averageBlue < photoTransistorBlue_Yellow_Max) {
     color = 4;
-  } else if (photoTransistorRed > photoTransistorRed_Blue_Min and photoTransistorRed < photoTransistorRed_Blue_Max and photoTransistorBlue > photoTransistorBlue_Blue_Min and photoTransistorBlue < photoTransistorBlue_Blue_Max){
+  } else if (averageRed > photoTransistorRed_Blue_Min and averageRed < photoTransistorRed_Blue_Max and averageBlue > photoTransistorBlue_Blue_Min and averageBlue < photoTransistorBlue_Blue_Max) {
     color = 2;
-  } else if (photoTransistorRed > photoTransistorRed_Black_Min and photoTransistorRed < photoTransistorRed_Black_Max and photoTransistorBlue > photoTransistorBlue_Black_Min and photoTransistorBlue < photoTransistorBlue_Black_Max){
+  } else if (averageRed > photoTransistorRed_Black_Min and averageRed < photoTransistorRed_Black_Max and averageBlue > photoTransistorBlue_Black_Min and averageBlue < photoTransistorBlue_Black_Max) {
     color = 1;
   } else {
     color = 5;
   }
 }
 
-int LightSensing::getColor(){
+int LightSensing::getColor() {
   return color;
 }
 
-bool LightSensing::getCalibrationBool(){
+bool LightSensing::getCalibrationBool() {
   return calibrationDone;
 }
 
-void LightSensing::turnOnRedLED(){
+void LightSensing::turnOnRedLED() {
   digitalWrite(lightSensingLED_Red, HIGH);
   digitalWrite(lightSensingLED_Blue, LOW);
 }
 
-void LightSensing::turnOnBlueLED(){
+void LightSensing::turnOnBlueLED() {
   digitalWrite(lightSensingLED_Red, LOW);
   digitalWrite(lightSensingLED_Blue, HIGH);
 }
 
-void LightSensing::turnOffLED(){
+void LightSensing::turnOffLED() {
   digitalWrite(lightSensingLED_Red, LOW);
   digitalWrite(lightSensingLED_Blue, LOW);
 }
 
-int LightSensing::calibrate(){
+int LightSensing::calibrate() {
   // CALIBRATES COLOR ON RED
   turnOnRedLED();
   photoTransistorRedValue = calibrationLoop();
-  photoTransistorRed_Red_Min = photoTransistorRedValue - plusMinus;
-  photoTransistorRed_Red_Max = photoTransistorRedValue + plusMinus;
+  photoTransistorRed_Red_Min = photoTransistorRedValue - plusMinusRed;
+  photoTransistorRed_Red_Max = photoTransistorRedValue + plusMinusRed;
   photoTransistorRedValue = 0;
   delay(200);
   turnOnBlueLED();
   photoTransistorRedValue = calibrationLoop();
-  photoTransistorBlue_Red_Min = photoTransistorRedValue - plusMinus;
-  photoTransistorBlue_Red_Max = photoTransistorRedValue + plusMinus;
+  photoTransistorBlue_Red_Min = photoTransistorRedValue - plusMinusRed;
+  photoTransistorBlue_Red_Max = photoTransistorRedValue + plusMinusRed;
   photoTransistorRedValue = 0;
   turnOffLED();
   delay(2000);
@@ -244,12 +246,20 @@ int LightSensing::calibrate(){
   Serial.print("Black - Blue Max: ");
   Serial.println(photoTransistorBlue_Black_Max);
   Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
 }
 
-int LightSensing::calibrationLoop(){
+int LightSensing::calibrationLoop() {
   averageValue = 0;
   photoTransistorCalibration = 0;
-  for(int i = 0; i < loopNum; i++){
+  for (int i = 0; i < loopNum; i++) {
     photoTransistorCalibration = analogRead(photoTransistorLS);
     // Serial.print("photoTransistorCalibration: ");
     // Serial.println(photoTransistorCalibration);
@@ -266,7 +276,7 @@ int LightSensing::calibrationLoop(){
   return averageValue;
 }
 
-int LightSensing::laneFollowing(int colorDetected){
+int LightSensing::laneFollowing(int colorDetected) {
   // newColor = colorDetected;
   // if(newColor == oldColor){
   //   oldColor = color;
@@ -285,21 +295,17 @@ int LightSensing::laneFollowing(int colorDetected){
   //     return 1;
   //   }
   // }
-  if ((colorDetected == 3 or colorDetected == 4) and leftRight == false){
-    leftRight = true;
+  if (colorDetected == 3 or colorDetected == 4) {
+    //leftRight = true;
     return 5;
-  } else {//if ((colorDetected = 5 and leftRight == true){
-    leftRight = false;
+  } else {  //if ((colorDetected = 5 and leftRight == true){
+    //leftRight = false;
     return 6;
   }
 }
 
-bool LightSensing::setLeftRight(bool leftRightSet){
-  leftRight = leftRightSet;
-}
-
-  //BLACK = 1
-  //BLUE = 2
-  //RED = 3
-  //YELLOW = 4
-  //UNKNOWN = 5
+//BLACK = 1
+//BLUE = 2
+//RED = 3
+//YELLOW = 4
+//UNKNOWN = 5

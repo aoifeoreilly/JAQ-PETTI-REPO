@@ -8,8 +8,8 @@
 
 #include "Arduino.h"
 
-const int cBuff = 1;
-const int wallVoltageInt = 615;
+const int cBuff = 2;
+const int wallVoltageInt = 733;
 const int wallVoltageWall1 = 615;
 const int wallVoltageWall2 = 620;
 const int wallVoltageWall3 = 620;

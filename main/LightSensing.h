@@ -13,7 +13,8 @@ const int lightSensingLED_Red = 11;
 const int photoTransistorLS = A3;
 const int cBuff_LS = 3;
 const int loopNum = 40;
-const int plusMinus = 70;
+const int plusMinus = 30;
+const int plusMinusRed = 80;
 
 class LightSensing
 {
@@ -84,7 +85,6 @@ class LightSensing
     bool calibrationDone = 0;
     int oldColor = 3;
     int newColor = 3;
-    bool leftRight = false;
 };
 
 #endif

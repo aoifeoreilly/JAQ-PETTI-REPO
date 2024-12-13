@@ -84,11 +84,11 @@ void WebSocket::checkNumbers(String message){
     state = 6;
   } else if (message.endsWith("State 0")){
     state = 0;
-  } else if (message.endsWith("JAQPETTI ASSEMBLE!")){
+  } else if (message.endsWith("JP START")){
     state = 7;
-  } else if (message.endsWith("JAQPETTI RESET!")){
+  } else if (message.endsWith("JP RESET")){
     state = 8;
-  } else if (message.endsWith("JAQPETTI CALIBRATE!")){
+  } else if (message.endsWith("JP CALIBRATE")){
     state = 100;
   }
 
@@ -106,10 +106,21 @@ void WebSocket::checkNumbers(String message){
     delayNum = 5;
   } else if (message.endsWith("JP - 100")){
     delayNum = 6;
-  } else if (message.endsWith("JAQPETTI TWIRL!")){
+  } else if (message.endsWith("JP TWIRL")){
     delayNum = 7;
   }
 
+  if (message.endsWith("BOT RESET!")){
+    botState = 0;
+  } else if (message.endsWith("BOT 1 SOLO")){
+    botState = 1;
+  } else if (message.endsWith("BOT 2 SOLO")){
+    botState = 2;
+  } else if (message.endsWith("BOT 1 TEAM")){
+    botState = 3;
+  } else if (message.endsWith("BOT 2 TEAM")){
+    botState = 4;
+  }
   calculateDelay();
 }
 
@@ -216,5 +227,9 @@ bool WebSocket::getResetTwirl(){
 
 void WebSocket::setResetTwirl(bool twirl){
   resetTwirl = twirl;
+}
+
+int WebSocket::getBotState(){
+  return botState;
 }
 

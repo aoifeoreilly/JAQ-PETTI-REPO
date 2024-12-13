@@ -94,11 +94,11 @@ void StateMachine::buttonStateFunctions() {
   if(buttonState == 5){ // TURN LEFT
     buttonStateResetPins();
     analogWrite(leftWheelInputA, analogWriteSpeedLeft);
-    analogWrite(rightWheelInputA, analogWriteSpeedRadiusTurn);
+    analogWrite(rightWheelInputA, analogWriteSpeedTurn);
   }
   if(buttonState == 6){ // TURN RIGHT
     buttonStateResetPins();
-    analogWrite(leftWheelInputA, analogWriteSpeedRadiusTurn);
+    analogWrite(leftWheelInputA, analogWriteSpeedTurn);
     analogWrite(rightWheelInputA, analogWriteSpeedRight);
   }
 }

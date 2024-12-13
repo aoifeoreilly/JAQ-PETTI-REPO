@@ -35,6 +35,7 @@ class WebSocket
     int getDelayAmountNumber();
     bool getResetTwirl();
     void setResetTwirl(bool twirl);
+    int getBotState();
   
 
   private:
@@ -50,7 +51,9 @@ class WebSocket
     bool resetTwirl = false;
 
     int delayState = 0;
-    int delayAmount = 1950;
+    int delayAmount = 1600;
+    
+    int botState = 0;
 };
 
 #endif

@@ -29,6 +29,8 @@ int stateNum = 0;
 int previousStateNum = 0;
 int delayState = 0;
 int delayNumber = 0;
+int botStateMain = 0;
+int firstColor = 0;
 bool delayBool = false;
 //volatile bool changeDelay = false;
 String state0 = "State 0";
@@ -94,6 +96,13 @@ void loop() {
   delayState = ws.getDelayNumber();
   delayNumber = ws.getDelayAmountNumber();
   delayBool = ws.getResetTwirl();
+  botStateMain = ws.getBotState();
+
+  if (botStateMain == 1){
+    firstColor = 3;
+  } else if (botStateMain == 2){
+    firstColor = 2;
+  }
 
   // Serial.print("delayNumber: ");
   // Serial.println(delayNumber);
@@ -129,28 +138,39 @@ void loop() {
   ls.checkColor();
   int lightSensingColor = ls.getColor();
   bool wallDetect = wall.getWallDetectedBool();
+  // Serial.print("Lane Following Color: ");
+  // if (stateLS == 5) {
+  //   Serial.println("RED: TURN LEFT");
+  // } else {
+  //   Serial.println("OTHERS: TURN RIGHT");
+  // }
+  // client.beginMessage(TYPE_TEXT);
+  // client.print(wallDetect);
+  // client.endMessage();
+  // Serial.print("Wall Detected: ");
+  // Serial.println(wallDetect);
   // int color = ls.getColor();
   // Serial.print("Color Num: ");
   // Serial.println(lightSensingColor);
 
-  // if (lightSensingColor == 1){
-  //   Serial.println("BLACK");
-  // } else if (lightSensingColor == 2){
-  //   Serial.println("BLUE");
-  // } else if (lightSensingColor == 3){
-  //   Serial.println("RED");
-  // } else if (lightSensingColor == 4){
-  //   Serial.println("YELLOW");
-  // } else if (lightSensingColor == 5){
-  //   Serial.println("UNKNOWN :(");
-  // }
+  if (lightSensingColor == 1){
+    Serial.println("BLACK");
+  } else if (lightSensingColor == 2){
+    Serial.println("BLUE");
+  } else if (lightSensingColor == 3){
+    Serial.println("RED");
+  } else if (lightSensingColor == 4){
+    Serial.println("YELLOW");
+  } else if (lightSensingColor == 5){
+    Serial.println("UNKNOWN :(");
+  }
 
-  // if (stateMachine == 0 and stateNum == 7){
-  //   stateNum = 1;
-  //   state.buttonStateSetter(stateNum);
-  //   state.buttonStateFunctions();
-  //   stateMachine += 1;
-  // }
+  if (stateMachine == 0 and stateNum == 7){
+    stateNum = 1;
+    state.buttonStateSetter(stateNum);
+    state.buttonStateFunctions();
+    stateMachine += 2;
+  }
 
   // if(stateNum == 8){
   //   stateNum == 0;
@@ -158,6 +178,7 @@ void loop() {
   //   state.buttonStateSetter(stateNum);
   //   state.buttonStateFunctions();
   // }
+  // Serial.println(stateMachine);
 
   if(stateMachine == 0 and stateNum == 100){
     ls.calibrate();
@@ -216,7 +237,7 @@ void loop() {
     stateMachine += 1;                     // State 0 is done, 
   }
 
-  if(stateMachine == 3 and lightSensingColor == 3){
+  if(stateMachine == 3 and lightSensingColor == firstColor){
     
     // stateNum = 3;
     // state.buttonStateSetter(stateNum);
@@ -237,19 +258,10 @@ void loop() {
     state.buttonStateFunctions();
     delay(delayNumber / 2);
 
-    stateNum = 0;
-    state.buttonStateSetter(stateNum);
-    state.buttonStateFunctions();
-    delay(delayNumber / 4);
-
     stateNum = 1;
     state.buttonStateSetter(stateNum);
     state.buttonStateFunctions();
     delay(delayNumber / 4);
-
-    
-
-
 
     // delay(500);
     // stateNum = 1; 
@@ -279,7 +291,6 @@ void loop() {
       state.buttonStateFunctions();
       delay(delayNumber / 4);
       stateMachine += 1;
-      ls.setLeftRight(false);
     }
   }
 
@@ -330,7 +341,6 @@ void loop() {
       state.buttonStateFunctions();
       delay(delayNumber / 4);
       stateMachine += 1;
-      ls.setLeftRight(false);
     }
   }
 
@@ -338,7 +348,7 @@ void loop() {
     stateNum = 3;
     state.buttonStateSetter(stateNum);
     state.buttonStateFunctions();
-    delay(delayNumber / 2);
+    delay((delayNumber / 2) + (delayNumber / 5));
 
     stateNum = 0;
     state.buttonStateSetter(stateNum);
@@ -348,28 +358,36 @@ void loop() {
     stateNum = 1;
     state.buttonStateSetter(stateNum);
     state.buttonStateFunctions();
-    delay(delayNumber + 100);
+    delay((delayNumber / 2) + (delayNumber / 5));
 
     stateMachine += 1;
   }
 
-  if (stateMachine == 9) {
-    if(wallDetect){
+  if (stateMachine == 9 and wallDetect) {
       stateNum = 0;
       state.buttonStateSetter(stateNum);
       state.buttonStateFunctions();
       delay(delayNumber / 4);
 
-      stateNum = 4;
+      stateNum = 3;
       state.buttonStateSetter(stateNum);
       state.buttonStateFunctions();
-      delay(delayNumber + 100);
+      delay(delayNumber);
 
       stateNum = 0;    
       state.buttonStateSetter(stateNum);
       state.buttonStateFunctions();   
       stateMachine += 1;   
-    }       
+
+      stateNum = 2;
+      state.buttonStateSetter(stateNum);
+      state.buttonStateFunctions();
+      delay(delayNumber / 2);
+
+      stateNum = 0;
+      state.buttonStateSetter(stateNum);
+      state.buttonStateFunctions();
+      delay(delayNumber / 4);
   }
 
 

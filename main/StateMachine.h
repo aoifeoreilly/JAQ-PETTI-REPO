@@ -28,19 +28,20 @@ const int buttonPin = 5;     // the number of the pushbutton pin
 // const int analogWriteSpeedReverse = 130;
 // const int analogWriteSpeedTurn = 90;
 // const int analogWriteSpeedRadiusTurn = 60;
-
-const int analogWriteSpeedLeft = 120;
-const int analogWriteSpeedRight = 120;
-const int analogWriteSpeedReverse = 120;
-const int analogWriteSpeedTurn = 75;
-const int analogWriteSpeedRadiusTurn = 65;
+const int analogWriteSpeedForward = 80;
+const int analogWriteSpeedLeft = 80;
+const int analogWriteSpeedRight = 80;
+const int analogWriteSpeedReverse = 80;
+const int analogWriteSpeedTurn = 60;
+const int analogWriteSpeedFast = 45;
+//const int analogWriteSpeedRadiusTurn = 50;
 
 // Constants Used for Sweeping Logic
-const int analogWriteSpeed2 = 40;
-const int analogWriteSpeedTest = 230;
-const int analogWriteSpeedTest2 = 40;
-const int amplitudePWM = 50;  	    // A
-const float sweepFrequency = 0.5; // f = 2pi/w = 0.5  
+// const int analogWriteSpeed2 = 40;
+// const int analogWriteSpeedTest = 230;
+// const int analogWriteSpeedTest2 = 40;
+// const int amplitudePWM = 50;  	    // A
+// const float sweepFrequency = 0.5; // f = 2pi/w = 0.5  
 
 
 class StateMachine
