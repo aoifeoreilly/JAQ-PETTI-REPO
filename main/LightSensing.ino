@@ -61,8 +61,8 @@ void LightSensing::readPhotoTransistorValue() {
     bufferIndexRed = 0;
   }
 
-  Serial.print("Red AnalogRead: ");
-  Serial.println(averageRed);
+  // Serial.print("Red AnalogRead: ");
+  // Serial.println(averageRed);
   // Serial.println(photoTransistorRed);
   // Serial.println("");
   // Serial.println("----------------");
@@ -80,10 +80,10 @@ void LightSensing::readPhotoTransistorValue() {
   if (bufferIndexBlue == cBuff) {
     bufferIndexBlue = 0;
   }
-  Serial.print("Blue AnalogRead: ");
-  Serial.println(averageBlue);
-  //Serial.println(photoTransistorBlue);
-  Serial.println("");
+  // Serial.print("Blue AnalogRead: ");
+  // Serial.println(averageBlue);
+  // //Serial.println(photoTransistorBlue);
+  // Serial.println("");
   delay(40);
 }
 
@@ -180,14 +180,14 @@ int LightSensing::calibrate() {
   //CALIBRATES COLOR ON BLUE
   turnOnRedLED();
   photoTransistorBlueValue = calibrationLoop();
-  photoTransistorRed_Blue_Min = photoTransistorBlueValue - plusMinus;
-  photoTransistorRed_Blue_Max = photoTransistorBlueValue + plusMinus;
+  photoTransistorRed_Blue_Min = photoTransistorBlueValue - plusMinusBlue;
+  photoTransistorRed_Blue_Max = photoTransistorBlueValue + plusMinusBlue;
   photoTransistorBlueValue = 0;
   delay(200);
   turnOnBlueLED();
   photoTransistorBlueValue = calibrationLoop();
-  photoTransistorBlue_Blue_Min = photoTransistorBlueValue - plusMinus;
-  photoTransistorBlue_Blue_Max = photoTransistorBlueValue + plusMinus;
+  photoTransistorBlue_Blue_Min = photoTransistorBlueValue - plusMinusBlue;
+  photoTransistorBlue_Blue_Max = photoTransistorBlueValue + plusMinusBlue;
   photoTransistorBlueValue = 0;
   turnOffLED();
   delay(2000);
@@ -211,9 +211,9 @@ int LightSensing::calibrate() {
   Serial.println(photoTransistorRed_Red_Min);
   Serial.print("Red - Red Max: ");
   Serial.println(photoTransistorRed_Red_Max);
-  Serial.print("Blue - Blue Min: ");
+  Serial.print("Red - Blue Min: ");
   Serial.println(photoTransistorBlue_Red_Min);
-  Serial.print("Blue - Blue Max: ");
+  Serial.print("Red - Blue Max: ");
   Serial.println(photoTransistorBlue_Red_Max);
   Serial.println("");
 
@@ -276,31 +276,21 @@ int LightSensing::calibrationLoop() {
   return averageValue;
 }
 
-int LightSensing::laneFollowing(int colorDetected) {
-  // newColor = colorDetected;
-  // if(newColor == oldColor){
-  //   oldColor = color;
-  //   return 1;
-  // } else {
-  //   if(leftRight == false){
-  //     leftRight = true;
-  //     oldColor = color;
-  //     return 5;
-  //   } else if (leftRight == true) {// if (leftRight == false){
-  //     leftRight = false;
-  //     oldColor = color;
-  //     return 6;
-  //   } else {
-  //     oldColor = color;
-  //     return 1;
-  //   }
-  // }
-  if (colorDetected == 3 or colorDetected == 4) {
-    //leftRight = true;
-    return 5;
-  } else {  //if ((colorDetected = 5 and leftRight == true){
-    //leftRight = false;
-    return 6;
+int LightSensing::laneFollowing(int colorDetected, int firstColor) {
+  if (firstColor == 3){                                                 // If the first color is red
+    if (colorDetected == firstColor or colorDetected == 4) {
+      return 5;
+    } else {
+      return 6;
+    }
+  }
+
+  if (firstColor == 2){                                                 // If the first color is blue
+    if (colorDetected == firstColor or colorDetected == 4) {
+      return 6;
+    } else {
+      return 5;
+    }
   }
 }
 

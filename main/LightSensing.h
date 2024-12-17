@@ -13,8 +13,9 @@ const int lightSensingLED_Red = 11;
 const int photoTransistorLS = A3;
 const int cBuff_LS = 3;
 const int loopNum = 40;
-const int plusMinus = 30;
+const int plusMinus = 15;
 const int plusMinusRed = 80;
+const int plusMinusBlue = 40;
 
 class LightSensing
 {
@@ -32,7 +33,7 @@ class LightSensing
     void turnOnBlueLED();
     void turnOffLED();
     int calibrationLoop();
-    int laneFollowing(int colorDetected);
+    int laneFollowing(int colorDetected, int firstColor);
     bool setLeftRight(bool leftRightSet);
 
   private:

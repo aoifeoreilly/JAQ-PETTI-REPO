@@ -84,42 +84,54 @@ void WebSocket::checkNumbers(String message){
     state = 6;
   } else if (message.endsWith("State 0")){
     state = 0;
-  } else if (message.endsWith("JP START")){
+  } else if (message.endsWith("JPS")){
     state = 7;
-  } else if (message.endsWith("JP RESET")){
+  } else if (message.endsWith("JPR")){
     state = 8;
-  } else if (message.endsWith("JP CALIBRATE")){
+  } else if (message.endsWith("JPR2")){
+    state = 9;
+  } else if (message.endsWith("JPC")){
     state = 100;
   }
 
-  if (message.endsWith("DELAY RESET!")){
+  if (message.endsWith("DR")){
     delayNum = 0;
-  } else if(message.endsWith("JP + 10")){
+  } else if(message.endsWith("JP10")){
     delayNum = 1;
-  } else if (message.endsWith("JP + 50")){
+  } else if (message.endsWith("JP50")){
     delayNum = 2;
-  } else if (message.endsWith("JP + 100")){
+  } else if (message.endsWith("JP100")){
     delayNum = 3;
-  } else if (message.endsWith("JP - 10")){
+  } else if (message.endsWith("JP-10")){
     delayNum = 4;
-  } else if (message.endsWith("JP - 50")){
+  } else if (message.endsWith("JP-50")){
     delayNum = 5;
-  } else if (message.endsWith("JP - 100")){
+  } else if (message.endsWith("JP-100")){
     delayNum = 6;
-  } else if (message.endsWith("JP TWIRL")){
+  } else if (message.endsWith("JPT")){
     delayNum = 7;
   }
 
-  if (message.endsWith("BOT RESET!")){
+  if (message.endsWith("BR!")){
     botState = 0;
-  } else if (message.endsWith("BOT 1 SOLO")){
+  } else if (message.endsWith("B1S")){
     botState = 1;
-  } else if (message.endsWith("BOT 2 SOLO")){
+  } else if (message.endsWith("B2S")){
     botState = 2;
-  } else if (message.endsWith("BOT 1 TEAM")){
+  } else if (message.endsWith("B1T")){
     botState = 3;
-  } else if (message.endsWith("BOT 2 TEAM")){
+  } else if (message.endsWith("B2T")){
     botState = 4;
+  }
+
+  if (message.endsWith("foundBlueSizz")){
+    botCommunication = 1;
+  } else if (message.endsWith("foundRedSizz")){
+    botCommunication = 2;
+  } else if (message.endsWith("atHomeSizz")){
+    botCommunication = 3;
+  } else if (message.endsWith("foundYellowSizz")){
+    botCommunication = 4;
   }
   calculateDelay();
 }
@@ -231,5 +243,9 @@ void WebSocket::setResetTwirl(bool twirl){
 
 int WebSocket::getBotState(){
   return botState;
+}
+
+int WebSocket::getBotCommunication(){
+  return botCommunication;
 }
 
