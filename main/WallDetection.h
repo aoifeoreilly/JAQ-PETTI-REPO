@@ -9,7 +9,7 @@
 #include "Arduino.h"
 
 const int cBuff = 2;
-const int wallVoltageInt = 735;
+const int wallVoltageInt = 705;
 const int wallVoltageWall1 = 615;
 const int wallVoltageWall2 = 620;
 const int wallVoltageWall3 = 620;

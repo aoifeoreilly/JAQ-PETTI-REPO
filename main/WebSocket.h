@@ -53,7 +53,7 @@ class WebSocket
 
     int botCommunication = 0;
     int delayState = 0;
-    int delayAmount = 1650;
+    int delayAmount = 3275;
     
     int botState = 0;
 };

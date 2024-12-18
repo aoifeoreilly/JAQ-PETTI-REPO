@@ -132,6 +132,8 @@ void WebSocket::checkNumbers(String message){
     botCommunication = 3;
   } else if (message.endsWith("foundYellowSizz")){
     botCommunication = 4;
+  } else if (message.endsWith("JPSTART")){
+    botCommunication = 5;
   }
   calculateDelay();
 }
@@ -212,9 +214,9 @@ void WebSocket::calculateDelay(){
 
     delayAmount -= 100;
   }
-  client.beginMessage(TYPE_TEXT);
-  client.print(delayAmount);
-  client.endMessage();
+  // client.beginMessage(TYPE_TEXT);
+  // client.print(delayAmount);
+  // client.endMessage();
 }
 
 int WebSocket::getDelayAmountNumber(){

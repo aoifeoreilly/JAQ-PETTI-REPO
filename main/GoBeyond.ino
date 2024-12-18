@@ -20,16 +20,17 @@ GoBeyond::GoBeyond(){
 void GoBeyond::begin(){
   pinMode(leftLED, OUTPUT);
   pinMode(rightLED, OUTPUT);
-  //initPins();
+  bothLightsOff();
 }
 
-// name: initPins
-// function : initializes the pins
-// arguments : none
-// returns : none
-void GoBeyond::initPins(){
-  // digitalWrite(leftLED, HIGH);
-  // digitalWrite(rightLED, HIGH);
+void GoBeyond::turnDirection(int turnNum){
+  if (turnNum == 3){
+    leftLightOnlyOn();
+  }
+
+  if (turnNum == 4){
+    rightLightOnlyOn();
+  }
 }
 
 void GoBeyond::leftLightOnlyOn(){
@@ -47,3 +48,7 @@ void GoBeyond::bothLightsOn(){
   digitalWrite(rightLED, HIGH);
 }
 
+void GoBeyond::bothLightsOff(){
+  digitalWrite(leftLED, LOW);
+  digitalWrite(rightLED, LOW);
+}

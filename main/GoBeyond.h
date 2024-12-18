@@ -8,19 +8,20 @@
 
 #include "Arduino.h"
 
-const int leftLED = 2;
-const int rightLED = 12;
+const int leftLED = 12;
+const int rightLED = 2;
 
 class GoBeyond
 {
   public:
     GoBeyond();
     void begin();
-    void initPins();
     void checkColor();
     void leftLightOnlyOn();
     void rightLightOnlyOn();
     void bothLightsOn();
+    void bothLightsOff();
+    void turnDirection(int turnNum);
 };
 
 #endif

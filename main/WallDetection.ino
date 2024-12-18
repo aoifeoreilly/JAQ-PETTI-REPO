@@ -49,7 +49,7 @@ void WallDetection::readPhotoTransistorValue() {
   // client.beginMessage(TYPE_TEXT);
   // client.print(average);
   // client.endMessage();
-  // Serial.println(average);
+  Serial.println(average);
   // Serial.println(photoTransistorValue);
 }
 

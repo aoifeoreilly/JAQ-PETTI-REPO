@@ -110,10 +110,10 @@ int LightSensing::checkColor() {
   //   color = 5;
   // }
 
-  if (averageRed > photoTransistorRed_Red_Min and averageRed < photoTransistorRed_Red_Max and averageBlue > photoTransistorBlue_Red_Min and averageBlue < photoTransistorBlue_Red_Max) {
-    color = 3;
-  } else if (averageRed > photoTransistorRed_Yellow_Min and averageRed < photoTransistorRed_Yellow_Max and averageBlue > photoTransistorBlue_Yellow_Min and averageBlue < photoTransistorBlue_Yellow_Max) {
+  if (averageRed > photoTransistorRed_Yellow_Min and averageRed < photoTransistorRed_Yellow_Max and averageBlue > photoTransistorBlue_Yellow_Min and averageBlue < photoTransistorBlue_Yellow_Max) {
     color = 4;
+  } else if (averageRed > photoTransistorRed_Red_Min and averageRed < photoTransistorRed_Red_Max and averageBlue > photoTransistorBlue_Red_Min and averageBlue < photoTransistorBlue_Red_Max) {
+    color = 3;
   } else if (averageRed > photoTransistorRed_Blue_Min and averageRed < photoTransistorRed_Blue_Max and averageBlue > photoTransistorBlue_Blue_Min and averageBlue < photoTransistorBlue_Blue_Max) {
     color = 2;
   } else if (averageRed > photoTransistorRed_Black_Min and averageRed < photoTransistorRed_Black_Max and averageBlue > photoTransistorBlue_Black_Min and averageBlue < photoTransistorBlue_Black_Max) {
@@ -122,6 +122,12 @@ int LightSensing::checkColor() {
     color = 5;
   }
 }
+//BLACK = 1
+//BLUE = 2
+//RED = 3
+//YELLOW = 4
+//UNKNOWN = 5
+
 
 int LightSensing::getColor() {
   return color;
@@ -254,6 +260,15 @@ int LightSensing::calibrate() {
   Serial.println("");
   Serial.println("");
   Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  Serial.println("");
+  
 }
 
 int LightSensing::calibrationLoop() {

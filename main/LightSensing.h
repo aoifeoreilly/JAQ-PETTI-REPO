@@ -11,11 +11,11 @@
 const int lightSensingLED_Blue = 5;
 const int lightSensingLED_Red = 11;
 const int photoTransistorLS = A3;
-const int cBuff_LS = 3;
+const int cBuff_LS = 4;
 const int loopNum = 40;
-const int plusMinus = 15;
-const int plusMinusRed = 80;
-const int plusMinusBlue = 40;
+const int plusMinus = 25;
+const int plusMinusRed = 60;
+const int plusMinusBlue = 30;
 
 class LightSensing
 {
